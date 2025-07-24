@@ -1,0 +1,664 @@
+/* Reset e configurações básicas */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    color: #ffffff;
+    overflow-x: hidden;
+}
+
+/* Utilitários */
+.tela {
+    display: none;
+    min-height: 100vh;
+    position: relative;
+}
+
+.tela.ativa {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Animações */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Tela Inicial */
+#tela-inicial {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-attachment: fixed;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container-inicial {
+    text-align: center;
+    max-width: 600px;
+    animation: fadeInScale 1s ease-out;
+}
+
+.castle-icon {
+    font-size: 5rem;
+    margin-bottom: 1rem;
+    animation: pulse 2s infinite;
+}
+
+.titulo-principal {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(45deg, #fff, #e0e7ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.subtitulo {
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    font-weight: 400;
+    color: #e0e7ff;
+    margin-bottom: 2rem;
+}
+
+.descricao {
+    font-size: 1.1rem;
+    color: #cbd5e1;
+    margin-bottom: 3rem;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Botões */
+.btn-principal {
+    background: linear-gradient(45deg, #8b5cf6, #ec4899);
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-principal:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 35px rgba(139, 92, 246, 0.4);
+}
+
+.btn-secundario {
+    background: transparent;
+    border: 2px solid #8b5cf6;
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    color: #8b5cf6;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-secundario:hover {
+    background: #8b5cf6;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Tela do Chat */
+#tela-chat {
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    padding: 20px;
+    justify-content: flex-start;
+}
+
+.container-chat {
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.chat-header {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.chat-header h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.progress-container {
+    width: 100%;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(45deg, #8b5cf6, #ec4899);
+    border-radius: 10px;
+    transition: width 0.5s ease;
+    width: 0%;
+}
+
+.progress-text {
+    font-size: 0.9rem;
+    color: #cbd5e1;
+}
+
+.chat-messages {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 2rem;
+    padding-right: 10px;
+}
+
+.chat-messages::-webkit-scrollbar {
+    width: 6px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+    background: rgba(139, 92, 246, 0.5);
+    border-radius: 10px;
+}
+
+.mensagem {
+    display: flex;
+    margin-bottom: 1rem;
+    animation: slideInLeft 0.5s ease-out;
+}
+
+.mensagem.usuario {
+    justify-content: flex-end;
+}
+
+.mensagem-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    max-width: 70%;
+}
+
+.mensagem.usuario .mensagem-content {
+    flex-direction: row-reverse;
+}
+
+.mensagem-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+}
+
+.mensagem.bot .mensagem-avatar {
+    background: #3b82f6;
+}
+
+.mensagem.usuario .mensagem-avatar {
+    background: #8b5cf6;
+}
+
+.mensagem-texto {
+    padding: 0.8rem 1rem;
+    border-radius: 18px;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+.mensagem.bot .mensagem-texto {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.mensagem.usuario .mensagem-texto {
+    background: #8b5cf6;
+}
+
+.chat-options {
+    display: grid;
+    gap: 0.8rem;
+}
+
+.opcao-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 1rem;
+    border-radius: 15px;
+    color: white;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+    animation: fadeInUp 0.5s ease-out;
+}
+
+.opcao-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(139, 92, 246, 0.5);
+    transform: translateY(-2px);
+}
+
+/* Tela de Resultado */
+#tela-resultado {
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    padding: 20px;
+    justify-content: flex-start;
+}
+
+.container-resultado {
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.resultado-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    animation: fadeInScale 0.8s ease-out;
+}
+
+.casa-emoji {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.resultado-titulo {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+}
+
+.resultado-subtitulo {
+    font-size: 1.2rem;
+    color: #cbd5e1;
+}
+
+.casa-card {
+    background: linear-gradient(45deg, var(--casa-cor-1), var(--casa-cor-2));
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+.casa-brasao-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.casa-brasao {
+    width: 120px;
+    height: 120px;
+    border-radius: 15px;
+    object-fit: cover;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    animation: fadeInScale 1s ease-out 0.5s both;
+}
+
+.casa-nome {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.casa-lema {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+.cursos-container {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
+.cursos-titulo {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.cursos-lista {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.curso-item {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 0.8rem 1rem;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    animation: slideInLeft 0.5s ease-out;
+}
+
+.dica-container {
+    background: rgba(59, 130, 246, 0.2);
+    border-radius: 15px;
+    padding: 1rem;
+}
+
+.dica-texto {
+    font-size: 0.9rem;
+    color: #bfdbfe;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal.ativo {
+    display: flex;
+}
+
+.modal-content {
+    background: #1e293b;
+    border-radius: 20px;
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: fadeInScale 0.3s ease-out;
+}
+
+.modal-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.btn-fechar {
+    background: none;
+    border: none;
+    color: #cbd5e1;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.btn-fechar:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.modal-body {
+    padding: 1.5rem;
+}
+
+.api-option {
+    margin-bottom: 1rem;
+}
+
+.api-option label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: background 0.3s ease;
+}
+
+.api-option label:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.input-group {
+    margin: 1.5rem 0;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    font-size: 0.9rem;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #8b5cf6;
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+}
+
+.modal-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.modal-actions button {
+    flex: 1;
+}
+
+/* Botão de Configuração */
+.btn-config {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #8b5cf6, #ec4899);
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(139, 92, 246, 0.3);
+    transition: all 0.3s ease;
+    z-index: 100;
+}
+
+.btn-config:hover {
+    transform: translateY(-2px) rotate(90deg);
+    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+}
+
+/* Cores das Casas */
+.casa-comandante-ia {
+    --casa-cor-1: #3b82f6;
+    --casa-cor-2: #8b5cf6;
+}
+
+.casa-engenheiro-automacao {
+    --casa-cor-1: #f97316;
+    --casa-cor-2: #dc2626;
+}
+
+.casa-mestre-vr {
+    --casa-cor-1: #10b981;
+    --casa-cor-2: #14b8a6;
+}
+
+.casa-hacker-futuro {
+    --casa-cor-1: #8b5cf6;
+    --casa-cor-2: #ec4899;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .titulo-principal {
+        font-size: 2.5rem;
+    }
+    
+    .subtitulo {
+        font-size: 1.2rem;
+    }
+    
+    .chat-header {
+        padding: 1rem;
+    }
+    
+    .casa-card {
+        padding: 1.5rem;
+    }
+    
+    .casa-brasao {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .casa-nome {
+        font-size: 1.5rem;
+    }
+    
+    .casa-lema {
+        font-size: 1rem;
+    }
+    
+    .cursos-lista {
+        grid-template-columns: 1fr;
+    }
+    
+    .modal-actions {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .container-inicial,
+    .container-chat,
+    .container-resultado {
+        padding: 0 10px;
+    }
+    
+    .castle-icon {
+        font-size: 4rem;
+    }
+    
+    .btn-principal {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+    }
+    
+    .mensagem-content {
+        max-width: 85%;
+    }
+    
+    .resultado-titulo {
+        font-size: 2rem;
+    }
+}
+

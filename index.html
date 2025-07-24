@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descubra Sua Casa Tech — Escudo do Futuro Senac</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Tela Inicial -->
+    <div id="tela-inicial" class="tela ativa">
+        <div class="container-inicial">
+            <div class="hero-content">
+                <div class="castle-icon">🏰</div>
+                <h1 class="titulo-principal">
+                    Descubra Sua Casa Tech
+                </h1>
+                <h2 class="subtitulo">
+                    Escudo do Futuro Senac
+                </h2>
+                <p class="descricao">
+                    Descubra qual tribo tecnológica combina com você e encontre seu caminho no universo tech! 🚀
+                </p>
+                <button id="btn-comecar" class="btn-principal">
+                    <i class="fas fa-sparkles"></i>
+                    Começar Jornada
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tela do Chat -->
+    <div id="tela-chat" class="tela">
+        <div class="container-chat">
+            <div class="chat-header">
+                <h2>Chat Interativo</h2>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div id="progress-fill" class="progress-fill"></div>
+                    </div>
+                    <p id="progress-text" class="progress-text">Pergunta 1 de 4</p>
+                </div>
+            </div>
+
+            <div id="chat-messages" class="chat-messages">
+                <!-- Mensagens serão inseridas aqui via JavaScript -->
+            </div>
+
+            <div id="chat-options" class="chat-options">
+                <!-- Opções de resposta serão inseridas aqui via JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Tela de Resultado -->
+    <div id="tela-resultado" class="tela">
+        <div class="container-resultado">
+            <div class="resultado-header">
+                <div id="casa-emoji" class="casa-emoji"></div>
+                <h1 class="resultado-titulo">Parabéns! 🎉</h1>
+                <p class="resultado-subtitulo">Você foi selecionado para a:</p>
+            </div>
+
+            <div id="casa-card" class="casa-card">
+                <div class="casa-brasao-container">
+                    <img id="casa-brasao" class="casa-brasao" src="" alt="Brasão da Casa">
+                </div>
+                <h2 id="casa-nome" class="casa-nome"></h2>
+                <p id="casa-lema" class="casa-lema"></p>
+            </div>
+
+            <div class="cursos-container">
+                <h3 class="cursos-titulo">
+                    <i class="fas fa-sparkles"></i>
+                    Cursos Senac Recomendados para Você
+                </h3>
+                <div id="cursos-lista" class="cursos-lista">
+                    <!-- Cursos serão inseridos aqui via JavaScript -->
+                </div>
+                <div class="dica-container">
+                    <p class="dica-texto">
+                        💡 <strong>Dica:</strong> O Senac São José do Rio Preto oferece bolsas de estudo 100% gratuitas! 
+                        Entre em contato: (17) 2139-1699 ou sjriopreto@sp.senac.br
+                    </p>
+                </div>
+            </div>
+
+            <button id="btn-refazer" class="btn-secundario">
+                Fazer Teste Novamente
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal de Configuração da API -->
+    <div id="modal-api" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Configuração da API</h3>
+                <button id="btn-fechar-modal" class="btn-fechar">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Para uma experiência ainda mais personalizada, configure uma API de LLM:</p>
+                
+                <div class="api-option">
+                    <label>
+                        <input type="radio" name="api-provider" value="openai" checked>
+                        OpenAI (ChatGPT)
+                    </label>
+                </div>
+                
+                <div class="api-option">
+                    <label>
+                        <input type="radio" name="api-provider" value="mistral">
+                        Mistral AI
+                    </label>
+                </div>
+
+                <div class="input-group">
+                    <label for="api-key">Chave da API:</label>
+                    <input type="password" id="api-key" placeholder="Insira sua chave da API">
+                </div>
+
+                <div class="modal-actions">
+                    <button id="btn-salvar-api" class="btn-principal">Salvar</button>
+                    <button id="btn-pular-api" class="btn-secundario">Pular</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botão de Configuração -->
+    <button id="btn-config" class="btn-config" title="Configurar API">
+        <i class="fas fa-cog"></i>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
