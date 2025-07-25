@@ -669,50 +669,10 @@ async function capturarFoto() {
         context.fillStyle = gradient;
         context.fillRect(0, 0, canvas.width, canvas.height);
 
-        // Carregar e desenhar o brasão da casa
-        if (casaAtual) {
-            const brasaoCanvas = await imagemParaCanvas(casasTech[casaAtual].img);
-            if (brasaoCanvas) {
-                const brasaoSize = Math.min(canvas.width * 0.35, canvas.height * 0.35);
-                const brasaoX = canvas.width - brasaoSize - 30;
-                const brasaoY = 30;
-
-                context.shadowColor = 'rgba(0, 0, 0, 0.5)';
-                context.shadowBlur = 20;
-                context.shadowOffsetX = 5;
-                context.shadowOffsetY = 5;
-
-                const centerX = brasaoX + brasaoSize / 2;
-                const centerY = brasaoY + brasaoSize / 2;
-                const radius = brasaoSize / 2 + 10;
-
-                const brasaoGradient = context.createRadialGradient(centerX, centerY, 0, centerX, centerY, radius);
-                brasaoGradient.addColorStop(0, 'rgba(255, 255, 255, 0.9)');
-                brasaoGradient.addColorStop(0.7, 'rgba(255, 255, 255, 0.6)');
-                brasaoGradient.addColorStop(1, 'rgba(255, 255, 255, 0.2)');
-
-                context.fillStyle = brasaoGradient;
-                context.beginPath();
-                context.arc(centerX, centerY, radius, 0, 2 * Math.PI);
-                context.fill();
-
-                context.drawImage(brasaoCanvas, brasaoX, brasaoY, brasaoSize, brasaoSize);
-
-                context.shadowColor = 'transparent';
-                context.shadowBlur = 0;
-                context.shadowOffsetX = 0;
-                context.shadowOffsetY = 0;
-
-                context.strokeStyle = 'rgba(255, 255, 255, 0.8)';
-                context.lineWidth = 3;
-                context.beginPath();
-                context.arc(centerX, centerY, radius - 5, 0, 2 * Math.PI);
-                context.stroke();
-            }
-        }
-
         // Logo Senac
         await adicionarLogoSenac(context);
+
+        await desenharBrasao(context)
 
         // Textos decorativos
         await adicionarTextoDecorativo(context);
@@ -738,34 +698,43 @@ async function capturarFoto() {
     }
 }
 
-async function adicionarBrasao(context) {
-    if (!casaAtual) return;
+async function desenharBrasao(context) {
+    if (!casaAtual || !casasTech[casaAtual]) return;
 
-    const img = await carregarImagemSegura(casasTech[casaAtual].img);
+    try {
+        const brasaoURL = casasTech[casaAtual].img;
+        const brasaoCanvas = await imagemParaCanvas(brasaoURL);
+        if (!brasaoCanvas) return;
 
-    const brasaoSize = 120; // mesmo tamanho visual definido pelo CSS do brasão overlay
-    const borderWidth = 3;
-    const posX = canvas.width - brasaoSize - 15;
-    const posY = 15;
+        const brasaoSize = Math.min(canvas.width * 0.35, canvas.height * 0.35);
 
-    // Box-shadow (glow animado do CSS não pode ser animado no canvas, mas replicaremos o estilo estático)
-    context.shadowColor = 'rgba(0,255,255,0.4)';
-    context.shadowBlur = 40;
+        // 📍 Posição no canto superior direito
+        const brasaoX = canvas.width - brasaoSize - 30;
+        const brasaoY = 30;
 
-    // Fundo branco circular (igual ao seu CSS)
-    context.beginPath();
-    context.arc(posX + brasaoSize / 2, posY + brasaoSize / 2, brasaoSize / 2 + borderWidth, 0, Math.PI * 2);
-    context.fillStyle = 'rgba(255,255,255,0.9)';
-    context.fill();
+        // Camada 2 do glow — ciano
+        context.shadowColor = 'rgba(0, 255, 255, 0.4)';
+        context.shadowBlur = 40;
+        context.drawImage(brasaoCanvas, brasaoX, brasaoY, brasaoSize, brasaoSize);
 
-    // Borda branca
-    context.lineWidth = borderWidth;
-    context.strokeStyle = 'rgba(255,255,255,0.9)';
-    context.stroke();
+        // Limpar sombra para não afetar stroke
+        context.shadowColor = 'transparent';
+        context.shadowBlur = 0;
 
-    // Desenhar brasão
-    context.shadowBlur = 0; // remove sombra para imagem
-    context.drawImage(img, posX, posY, brasaoSize, brasaoSize);
+        // 🔵 Moldura circular
+        const centerX = brasaoX + brasaoSize / 2;
+        const centerY = brasaoY + brasaoSize / 2;
+        const radius = brasaoSize / 2;
+
+        context.beginPath();
+        context.arc(centerX, centerY, radius + 1.5, 0, 2 * Math.PI); // pequeno ajuste
+        context.strokeStyle = 'rgba(255, 255, 255, 0.9)';
+        context.lineWidth = 3;
+        context.stroke();
+
+    } catch (error) {
+        console.error('Erro ao desenhar brasão:', error);
+    }
 }
 
 function novaFoto() {
@@ -963,45 +932,77 @@ async function adicionarLogoSenac(context) {
 
 
 async function adicionarTextoDecorativo(context) {
-    const paddingX = 12;
-    const paddingY = 8;
-    const borderRadius = 8;
+    try {
+        const mainText = '#CasaTechSenac';
+        const secondaryText = '#CasaAberta';
 
-    context.font = 'bold 14px Arial';
-    const mainText = '#CasaTechSenac';
-    const secondaryText = '#CasaAberta';
+        // Fonte real usada
+        const fontStack = "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
 
-    const textWidth = Math.max(context.measureText(mainText).width, context.measureText(secondaryText).width);
-    const boxWidth = textWidth + paddingX * 2;
-    const boxHeight = 34 + paddingY * 2;
+        // Estilo CSS: .hashtag-main { font-size: 14px; font-weight: bold; }
+        const fontMain = `bold 25px ${fontStack}`;
 
-    const posX = canvas.width - boxWidth - 20;
-    const posY = canvas.height - boxHeight - 20;
+        // Estilo CSS: .hashtag-secondary { font-size: 12px; color: #FFD700; }
+        const fontSecondary = `normal 20px ${fontStack}`;
 
-    // Box-shadow
-    context.shadowColor = 'rgba(0, 0, 0, 0.3)';
-    context.shadowBlur = 15;
-    context.shadowOffsetY = 4;
+        const paddingX = 20;
+        const paddingY = 18;
+        const borderRadius = 20;
 
-    // Fundo gradiente (igual ao CSS)
-    const gradient = context.createLinearGradient(posX, posY, posX + boxWidth, posY + boxHeight);
-    gradient.addColorStop(0, 'rgba(0, 0, 0, 0.3)');
-    gradient.addColorStop(1, 'rgba(0, 0, 0, 0.8)');
-    context.fillStyle = gradient;
+        // Medidas baseadas na largura do texto
+        context.font = fontMain;
+        const widthMain = context.measureText(mainText).width;
 
-    desenharRetanguloArredondado(context, posX, posY, boxWidth, boxHeight, borderRadius);
-    context.fill();
-    context.shadowColor = 'transparent';
+        context.font = fontSecondary;
+        const widthSecondary = context.measureText(secondaryText).width;
 
-    // Textos
-    context.textAlign = 'right';
-    context.fillStyle = '#FFFFFF';
-    context.fillText(mainText, posX + boxWidth - paddingX, posY + paddingY + 14);
-    context.fillStyle = '#FFD700';
-    context.font = '12px Arial';
-    context.fillText(secondaryText, posX + boxWidth - paddingX, posY + paddingY + 28);
-    context.textAlign = 'left';
+        const maxTextWidth = Math.max(widthMain, widthSecondary);
+        const boxWidth = maxTextWidth + paddingX * 2;
+        const boxHeight = 32 + paddingY * 2; // altura total para duas linhas compactas
+
+        // Posição (bottom: 20px; right: 20px), ajustando para a borda arredondada do canvas
+        const borderOffset = 25; // distância interna da moldura do canvas (borda que fizemos arredondada)
+        const safeMargin = 10; // margem de segurança para afastar o texto da borda
+
+        const posX = canvas.width - boxWidth - borderOffset - safeMargin;
+        const posY = canvas.height - boxHeight - borderOffset - safeMargin;
+
+        // Gradiente linear (135deg): escuro suave à direita
+        const gradient = context.createLinearGradient(posX, posY, posX + boxWidth, posY + boxHeight);
+        gradient.addColorStop(0, 'rgba(0, 0, 0, 0.3)');
+        gradient.addColorStop(1, 'rgba(0, 0, 0, 0.8)');
+        context.fillStyle = gradient;
+
+        // Sombra tipo box-shadow
+        context.shadowColor = 'rgba(0, 0, 0, 0.3)';
+        context.shadowBlur = 15;
+        context.shadowOffsetX = 0;
+        context.shadowOffsetY = 4;
+
+        desenharRetanguloArredondado(context, posX, posY, boxWidth, boxHeight, borderRadius);
+        context.fill();
+
+        // Remove sombra para o texto
+        context.shadowColor = 'transparent';
+
+        // Texto principal (branco)
+        context.font = fontMain;
+        context.fillStyle = '#FFFFFF';
+        context.textAlign = 'right';
+        context.fillText(mainText, posX + boxWidth - paddingX, posY + paddingY + 14);
+
+        // Texto secundário (dourado)
+        context.font = fontSecondary;
+        context.fillStyle = '#FFD700';
+        context.fillText(secondaryText, posX + boxWidth - paddingX, posY + paddingY + 40);
+
+        context.textAlign = 'left';
+
+    } catch (error) {
+        console.error('Erro ao adicionar texto decorativo:', error);
+    }
 }
+
 
 
 // Função para adicionar efeitos visuais (partículas/estrelas)
