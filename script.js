@@ -664,8 +664,8 @@ async function capturarFoto() {
 
         // Adicionar overlay escuro sutil
         const gradient = context.createLinearGradient(0, 0, 0, canvas.height);
-        gradient.addColorStop(0, 'rgba(0, 0, 0, 0.1)');
-        gradient.addColorStop(1, 'rgba(0, 0, 0, 0.3)');
+        gradient.addColorStop(0, 'rgba(0, 0, 0, 0.05)');
+        gradient.addColorStop(1, 'rgba(0, 0, 0, 0.15)');
         context.fillStyle = gradient;
         context.fillRect(0, 0, canvas.width, canvas.height);
 
