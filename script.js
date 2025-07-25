@@ -890,53 +890,75 @@ if ('scrollBehavior' in document.documentElement.style) {
 }
 
 async function adicionarLogoSenac(context) {
-    const img = await carregarImagemSegura('img/senac-logo.png');
+    try {
+        const img = await carregarImagemSegura('img/senac-logo.png');
 
-    const logoWidth = 100; // largura definida no CSS (.img-fluid max-width)
-    const logoHeight = (img.height / img.width) * logoWidth;
+        // Define a largura da logo em pixels (ajustada para ficar visível e proporcional ao canvas)
+        const logoWidth = 190;
 
-    const paddingX = 12;
-    const paddingY = 8;
-    const borderRadius = 8;
-    const borderWidth = 2;
+        // Calcula a altura proporcional da logo com base no aspecto original da imagem (evita distorção)
+        const logoHeight = (img.height / img.width) * logoWidth;
 
-    const boxWidth = logoWidth + paddingX * 2;
-    const boxHeight = logoHeight + paddingY * 2;
+        // Define o "padding" interno do container da logo — espaço entre a borda e a imagem
+        const paddingX = 16; // Espaço horizontal
+        const paddingY = 10; // Espaço vertical
 
-    const posX = 20; // left
-    const posY = canvas.height - boxHeight - 20; // bottom
+        // Define o raio de arredondamento dos cantos do fundo da logo (igual ao CSS)
+        const borderRadius = 10;
 
-    // Box-shadow
-    context.shadowColor = 'rgba(0, 0, 0, 0.3)';
-    context.shadowBlur = 15;
-    context.shadowOffsetY = 4;
+        // Define a espessura da borda branca ao redor do fundo
+        const borderWidth = 2;
 
-    // Fundo semi-transparente e borda
-    context.fillStyle = 'rgba(0, 0, 0, 0.85)';
-    context.strokeStyle = '#ffffffce';
-    context.lineWidth = borderWidth;
+        // Calcula a largura total da caixinha que envolve a logo (logo + padding dos dois lados)
+        const boxWidth = logoWidth + paddingX * 2;
 
-    desenharRetanguloArredondado(context, posX, posY, boxWidth, boxHeight, borderRadius);
-    context.fill();
-    context.shadowColor = 'transparent';
-    context.stroke();
+        // Calcula a altura total da caixinha que envolve a logo
+        const boxHeight = logoHeight + paddingY * 2;
 
-    // Logo Senac
-    context.drawImage(img, posX + paddingX, posY + paddingY, logoWidth, logoHeight);
-}
+        // Ajusta o posicionamento respeitando a borda decorativa externa
+        const borderOffset = 25; // Distância interna da moldura do canvas (borda que fizemos arredondada)
+        const safeMargin = 10;   // Margem de segurança extra para afastar a logo da borda
 
-function desenharRetanguloArredondado(ctx, x, y, width, height, radius) {
-    ctx.beginPath();
-    ctx.moveTo(x + radius, y);
-    ctx.lineTo(x + width - radius, y);
-    ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
-    ctx.lineTo(x + width, y + height - radius);
-    ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
-    ctx.lineTo(x + radius, y + height);
-    ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
-    ctx.lineTo(x, y + radius);
-    ctx.quadraticCurveTo(x, y, x + radius, y);
-    ctx.closePath();
+        // Calcula a posição X (esquerda) da logo dentro do canvas, considerando o offset + margem
+        const posX = borderOffset + safeMargin;
+
+        // Calcula a posição Y (de cima pra baixo), considerando altura total da caixa e margem inferior
+        const posY = canvas.height - boxHeight - borderOffset - safeMargin;
+
+
+        // Define a sombra ao redor do container da logo, simulando o `box-shadow` do CSS
+        context.shadowColor = 'rgba(0, 0, 0, 0.3)'; // Cor escura semi-transparente
+        context.shadowBlur = 15;                   // Desfoque da sombra
+        context.shadowOffsetX = 0;                 // Nenhum deslocamento horizontal
+        context.shadowOffsetY = 4;                 // Leve deslocamento vertical (para baixo)
+
+        // Define o fundo do container — cor preta com opacidade, como no CSS (.senac-logo-overlay)
+        context.fillStyle = 'rgba(0, 0, 0, 0.85)';
+
+        // Define a cor da borda branca com leve transparência
+        context.strokeStyle = '#ffffffce';
+
+        // Define a espessura da borda
+        context.lineWidth = borderWidth;
+
+        // Usa função auxiliar para desenhar um retângulo com cantos arredondados no canvas
+        desenharRetanguloArredondado(context, posX, posY, boxWidth, boxHeight, borderRadius);
+
+        // Preenche o container com a cor de fundo (preto translúcido)
+        context.fill();
+
+        // Remove sombra antes de desenhar a borda (para não aplicar sombra na linha)
+        context.shadowColor = 'transparent';
+
+        // Desenha a borda branca em volta do container
+        context.stroke();
+
+        // Desenhar a logo
+        context.drawImage(img, posX + paddingX, posY + paddingY, logoWidth, logoHeight);
+
+    } catch (error) {
+        console.error('Erro ao adicionar logo Senac:', error);
+    }
 }
 
 
@@ -1026,10 +1048,26 @@ function adicionarEfeitosVisuais(context) {
 
         context.strokeStyle = borderGradient;
         context.lineWidth = 8;
-        context.strokeRect(15, 15, canvas.width - 30, canvas.height - 30);
+        const borderRadius = 16;
+        desenharRetanguloArredondado(context, 15, 15, canvas.width - 30, canvas.height - 30, borderRadius);
+        context.stroke();
+
 
     } catch (error) {
         console.error('Erro ao adicionar efeitos visuais:', error);
     }
 }
 
+function desenharRetanguloArredondado(ctx, x, y, width, height, radius) {
+    ctx.beginPath();
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + width - radius, y);
+    ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+    ctx.lineTo(x + width, y + height - radius);
+    ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+    ctx.lineTo(x + radius, y + height);
+    ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+    ctx.closePath();
+}
