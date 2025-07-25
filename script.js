@@ -394,13 +394,18 @@ function mostrarPergunta() {
     const pergunta = perguntas[perguntaAtual];
     atualizarProgresso();
 
+    // Clona e embaralha as opções antes de exibir
+    const opcoesEmbaralhadas = [...pergunta.opcoes];
+    embaralharArray(opcoesEmbaralhadas);
+
     setTimeout(() => {
         adicionarMensagem('bot', pergunta.texto);
         setTimeout(() => {
-            mostrarOpcoes(pergunta.opcoes);
+            mostrarOpcoes(opcoesEmbaralhadas); // usa as opções embaralhadas
         }, 1000);
     }, 500);
 }
+
 
 function adicionarMensagem(tipo, texto) {
     const mensagemDiv = document.createElement('div');
@@ -526,6 +531,15 @@ function mostrarResultado(casaId) {
     mostrarTela('resultado');
 }
 
+function embaralharArray(array) {
+    // Algoritmo de Fisher-Yates para embaralhar arrays in-place
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+
 function reiniciarApp() {
     perguntaAtual = 0;
     pontuacao = {
@@ -641,33 +655,33 @@ async function capturarFoto() {
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
 
-        // Desenhar o vídeo no canvas
+        // Espelhar horizontalmente o vídeo no canvas (para bater com a visualização)
+        context.save();
+        context.translate(canvas.width, 0);  // move a origem para o canto superior direito
+        context.scale(-1, 1);                // inverte horizontalmente
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        context.restore();
 
-        // Adicionar overlay escuro sutil para melhor contraste
+        // Adicionar overlay escuro sutil
         const gradient = context.createLinearGradient(0, 0, 0, canvas.height);
         gradient.addColorStop(0, 'rgba(0, 0, 0, 0.1)');
         gradient.addColorStop(1, 'rgba(0, 0, 0, 0.3)');
         context.fillStyle = gradient;
         context.fillRect(0, 0, canvas.width, canvas.height);
 
-        // Carregar e desenhar o brasão de forma segura
+        // Carregar e desenhar o brasão da casa
         if (casaAtual) {
             const brasaoCanvas = await imagemParaCanvas(casasTech[casaAtual].img);
-
             if (brasaoCanvas) {
-                // Calcular posição e tamanho do brasão (maior e mais centralizado)
-                const brasaoSize = Math.min(canvas.width * 0.35, canvas.height * 0.35); // Aumentado de 0.2 para 0.35
+                const brasaoSize = Math.min(canvas.width * 0.35, canvas.height * 0.35);
                 const brasaoX = canvas.width - brasaoSize - 30;
                 const brasaoY = 30;
 
-                // Adicionar efeito de sombra ao brasão
                 context.shadowColor = 'rgba(0, 0, 0, 0.5)';
                 context.shadowBlur = 20;
                 context.shadowOffsetX = 5;
                 context.shadowOffsetY = 5;
 
-                // Desenhar círculo de fundo com gradiente
                 const centerX = brasaoX + brasaoSize / 2;
                 const centerY = brasaoY + brasaoSize / 2;
                 const radius = brasaoSize / 2 + 10;
@@ -682,16 +696,13 @@ async function capturarFoto() {
                 context.arc(centerX, centerY, radius, 0, 2 * Math.PI);
                 context.fill();
 
-                // Desenhar o brasão redimensionado
                 context.drawImage(brasaoCanvas, brasaoX, brasaoY, brasaoSize, brasaoSize);
 
-                // Resetar sombra
                 context.shadowColor = 'transparent';
                 context.shadowBlur = 0;
                 context.shadowOffsetX = 0;
                 context.shadowOffsetY = 0;
 
-                // Adicionar brilho ao redor do brasão
                 context.strokeStyle = 'rgba(255, 255, 255, 0.8)';
                 context.lineWidth = 3;
                 context.beginPath();
@@ -700,17 +711,17 @@ async function capturarFoto() {
             }
         }
 
-        // Adicionar logo do Senac no canto inferior esquerdo
+        // Logo Senac
         await adicionarLogoSenac(context);
 
-        // Adicionar texto decorativo
+        // Textos decorativos
         await adicionarTextoDecorativo(context);
 
-        // Adicionar efeitos de partículas/estrelas
+        // Efeitos visuais
         adicionarEfeitosVisuais(context);
 
-        // Converter para imagem e mostrar preview
-        const dataURL = canvas.toDataURL('image/jpeg', 0.95); // Aumentar qualidade
+        // Mostrar preview da imagem final
+        const dataURL = canvas.toDataURL('image/jpeg', 0.95);
         capturedPhoto.src = dataURL;
 
         // Atualizar interface
@@ -850,65 +861,36 @@ if ('scrollBehavior' in document.documentElement.style) {
 
 // Função para adicionar logo do Senac
 async function adicionarLogoSenac(context) {
-    try {
-        // Criar logo do Senac usando texto estilizado (já que não temos a imagem)
-        const logoX = 30;
-        const logoY = canvas.height - 80;
+    const logo = new Image();
+    logo.src = 'img/senac-logo.png'; // atualize o caminho conforme necessário
 
-        // Fundo semi-transparente para a logo
-        context.fillStyle = 'rgba(0, 0, 0, 0.7)';
-        context.fillRect(logoX - 10, logoY - 40, 120, 60);
+    await new Promise(resolve => logo.onload = resolve);
 
-        // Texto "SENAC"
-        context.font = 'bold 24px Arial';
-        context.fillStyle = '#FF6B35'; // Cor laranja do Senac
-        context.fillText('SENAC', logoX, logoY - 15);
+    const largura = canvas.width * 0.15;
+    const altura = largura * 0.6;
+    const margem = 20;
 
-        // Texto "São José do Rio Preto"
-        context.font = '12px Arial';
-        context.fillStyle = '#FFFFFF';
-        context.fillText('São José do Rio Preto', logoX, logoY);
-
-    } catch (error) {
-        console.error('Erro ao adicionar logo Senac:', error);
-    }
+    context.drawImage(logo, margem, canvas.height - altura - margem, largura, altura);
 }
 
 // Função para adicionar texto decorativo
 async function adicionarTextoDecorativo(context) {
-    try {
-        if (casaAtual) {
-            const casa = casasTech[casaAtual];
+    const texto1 = "#CasaTechSenac";
+    const texto2 = "#CasaAberta";
 
-            // Texto no canto inferior direito
-            const textoX = canvas.width - 20;
-            const textoY = canvas.height - 40;
+    context.font = `bold ${canvas.height * 0.035}px Arial`;
+    context.fillStyle = "#ffffff";
+    context.textAlign = "right";
 
-            // Fundo gradiente para o texto
-            const textGradient = context.createLinearGradient(textoX - 200, textoY - 30, textoX, textoY + 10);
-            textGradient.addColorStop(0, 'rgba(0, 0, 0, 0.1)');
-            textGradient.addColorStop(1, 'rgba(0, 0, 0, 0.8)');
-            context.fillStyle = textGradient;
-            context.fillRect(textoX - 220, textoY - 35, 240, 50);
+    const margem = 30;
+    const x = canvas.width - margem;
+    const yBase = canvas.height - margem;
 
-            // Hashtag principal
-            context.font = 'bold 16px Arial';
-            context.fillStyle = '#FFFFFF';
-            context.textAlign = 'right';
-            context.fillText('#CasaTechSenac', textoX, textoY - 15);
-
-            // Hashtag secundária
-            context.font = '14px Arial';
-            context.fillStyle = '#FFD700'; // Dourado
-            context.fillText('#CasaAberta', textoX, textoY);
-
-            // Resetar alinhamento
-            context.textAlign = 'left';
-        }
-    } catch (error) {
-        console.error('Erro ao adicionar texto decorativo:', error);
-    }
+    context.fillText(texto1, x, yBase - 10);
+    context.fillStyle = "#F4A300";
+    context.fillText(texto2, x, yBase + canvas.height * 0.04);
 }
+
 
 // Função para adicionar efeitos visuais (partículas/estrelas)
 function adicionarEfeitosVisuais(context) {

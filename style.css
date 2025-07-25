@@ -40,6 +40,7 @@ body {
 .logo-emoji {
     font-size: 4rem;
     animation: bounce 2s infinite;
+
 }
 
 @keyframes bounce {
