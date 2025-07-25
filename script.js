@@ -511,17 +511,19 @@ function mostrarResultado(casaId) {
         const cursoDiv = document.createElement('div');
         cursoDiv.className = 'col-md-6 mb-4';
         cursoDiv.innerHTML = `
-        <a href="${curso.link}" target="_blank">
-            <div class="card h-100 border-0 shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title text-primary">
-                        <i class="bi bi-book-fill me-2"></i>
-                        ${curso.nome}
-                    </h5>
-                    <p class="card-text text-muted small lh-base">${curso.descricao}</p>
-                </div>
+                <div class="card h-100 border-0 shadow-sm">
+            <div class="card-body d-flex flex-column">
+                <h5 class="card-title text-primary">
+                    <i class="bi bi-book-fill me-2"></i>
+                    ${curso.nome}
+                </h5>
+                <p class="card-text text-muted small lh-base flex-grow-1">${curso.descricao}</p>
+
+                <a href="${curso.link}" target="_blank" class="btn btn-outline-primary mt-3 align-self-start">
+                    Registre seu interesse !!!
+                </a>
             </div>
-        </a>
+        </div>
         `;
         cursosLista.appendChild(cursoDiv);
     });
