@@ -14,28 +14,24 @@ const casasTech = {
         img: 'img/cia.png',
         cursos: [
             {
-                nome: 'Power BI (40h)',
+                nome: 'Power BI',
                 descricao: 'Domine a ferramenta mais poderosa de Business Intelligence do mercado. Aprenda a criar dashboards profissionais, conectar múltiplas fontes de dados e transformar números em insights visuais que impressionam. Ideal para quem quer se destacar na análise de dados.',
-                nivel: 'Iniciante a Intermediário',
-                destaque: 'Certificação Microsoft reconhecida'
+                link: 'http://sp.senac.br/cursos-livres/curso-de-power-bi'
             },
             {
                 nome: 'Formação Excel Avançado',
                 descricao: 'Vá além das planilhas básicas! Descubra fórmulas avançadas, tabelas dinâmicas, macros e automações que vão revolucionar sua produtividade. Torne-se um ninja do Excel e impressione em qualquer empresa.',
-                nivel: 'Intermediário a Avançado',
-                destaque: 'Automação com VBA incluída'
+                link: 'https://www.sp.senac.br/cursos-livres/curso-de-formacao-excel-do-basico-ao-avancado'
             },
             {
                 nome: 'Programador de Sistemas',
                 descricao: 'Entre no mundo da programação criando sistemas completos do zero. Aprenda lógica de programação, bancos de dados, desenvolvimento web e mobile. O curso perfeito para quem quer construir o futuro digital.',
-                nivel: 'Iniciante',
-                destaque: 'Projetos práticos reais'
+                link: 'https://www.sp.senac.br/cursos-livres/curso-de-programador-de-sistemas'
             },
             {
                 nome: 'Introdução à Programação',
                 descricao: 'Seus primeiros passos no universo tech! Descubra os fundamentos da programação de forma didática e divertida. Aprenda a pensar como um programador e crie seus primeiros códigos.',
-                nivel: 'Iniciante',
-                destaque: 'Base sólida para qualquer linguagem'
+                link: 'https://www.sp.senac.br/cursos-livres/curso-de-introducao-a-pratica-da-programacao'
             }
         ]
     },
@@ -56,26 +52,23 @@ const casasTech = {
             {
                 nome: 'Técnico em Informática',
                 descricao: 'Formação completa em tecnologia! Aprenda hardware, software, redes, programação e manutenção de sistemas. O curso mais abrangente para quem quer dominar todos os aspectos da informática e estar preparado para qualquer desafio tech.',
-                nivel: 'Técnico',
-                destaque: 'Diploma técnico reconhecido pelo MEC'
+                link: 'https://www.sp.senac.br/cursos-tecnicos/curso-tecnico-em-informatica'
+
             },
             {
                 nome: 'Virtualização com Hyper-V',
                 descricao: 'Domine a arte da virtualização! Aprenda a criar e gerenciar máquinas virtuais, otimizar recursos de servidor e construir infraestruturas de TI modernas e eficientes. Essencial para a era da computação em nuvem.',
-                nivel: 'Intermediário',
-                destaque: 'Certificação Microsoft incluída'
+                link: 'https://www.sp.senac.br/cursos-livres/curso-de-virtualizacao-com-windows-server-hyper-v'
             },
             {
                 nome: 'Fundamentos do Azure',
                 descricao: 'Entre no mundo da computação em nuvem com a plataforma líder do mercado. Aprenda a criar, configurar e gerenciar recursos na nuvem da Microsoft. Seu passaporte para o futuro da infraestrutura de TI.',
-                nivel: 'Iniciante a Intermediário',
-                destaque: 'Preparação para certificação Azure'
+                link: 'https://www.sp.senac.br/cursos-livres/curso-de-fundamentos-do-microsoft-azure'
             },
             {
                 nome: 'Programador de Sistemas',
                 descricao: 'Construa sistemas robustos e escaláveis! Aprenda as melhores práticas de desenvolvimento, arquitetura de software e metodologias ágeis. Torne-se o programador que as empresas procuram.',
-                nivel: 'Iniciante a Intermediário',
-                destaque: 'Metodologias ágeis incluídas'
+                link: 'https://www.sp.senac.br/cursos-livres/curso-de-programador-de-sistemas'
             }
         ]
     },
@@ -96,26 +89,22 @@ const casasTech = {
             {
                 nome: 'Programador de Sistemas',
                 descricao: 'A base para criar experiências digitais incríveis! Aprenda programação orientada a objetos, desenvolvimento de interfaces e criação de aplicações interativas. Seu primeiro passo para o mundo dos games e VR.',
-                nivel: 'Iniciante',
-                destaque: 'Foco em aplicações interativas'
+                link: 'https://www.sp.senac.br/cursos-livres/curso-de-programador-de-sistemas'
             },
             {
                 nome: 'Técnico em Informática',
                 descricao: 'Formação completa para dominar todas as tecnologias! Desde hardware para VR até programação de jogos, este curso te prepara para trabalhar com as mais diversas plataformas e dispositivos imersivos.',
-                nivel: 'Técnico',
-                destaque: 'Especialização em tecnologias imersivas'
+                link: 'https://www.sp.senac.br/cursos-tecnicos/curso-tecnico-em-informatica'
             },
             {
                 nome: 'Introdução à Programação',
                 descricao: 'Comece sua jornada criativa! Aprenda os fundamentos da programação com foco em criação de conteúdo interativo. O primeiro passo para desenvolver jogos, apps e experiências digitais.',
-                nivel: 'Iniciante',
-                destaque: 'Projetos criativos e interativos'
+                link: 'https://www.sp.senac.br/cursos-livres/curso-de-introducao-a-pratica-da-programacao'
             },
             {
-                nome: 'Power BI (40h)',
+                nome: 'Power BI',
                 descricao: 'Visualize dados como nunca antes! Crie dashboards interativos e imersivos que transformam análise de dados em experiências visuais impactantes. Perfeito para quem quer inovar na apresentação de informações.',
-                nivel: 'Iniciante a Intermediário',
-                destaque: 'Visualizações avançadas e interativas'
+                link: 'https://www.sp.senac.br/cursos-livres/curso-de-power-bi'
             }
         ]
     },
@@ -136,26 +125,24 @@ const casasTech = {
             {
                 nome: 'Analista de Segurança da Informação',
                 descricao: 'Torne-se um guardião digital! Aprenda a identificar vulnerabilidades, implementar proteções avançadas e responder a incidentes de segurança. O curso mais completo para quem quer proteger o mundo digital.',
-                nivel: 'Intermediário a Avançado',
-                destaque: 'Certificações de segurança reconhecidas'
+                link: 'https://www.sp.senac.br/cursos-livres/curso-de-analista-de-seguranca-da-informacao'
             },
             {
                 nome: 'Segurança em Servidores Linux',
                 descricao: 'Domine a segurança do sistema operacional mais usado em servidores! Aprenda hardening, monitoramento, detecção de intrusões e resposta a incidentes em ambientes Linux.',
-                nivel: 'Intermediário',
-                destaque: 'Hands-on com servidores reais'
+                link: 'https://www.sp.senac.br/cursos-livres/curso-de-seguranca-em-servidores-linux'
+
             },
             {
                 nome: 'Técnico em Informática',
                 descricao: 'Ao longo do curso, você se torna especialista em hardware, software, redes, programação, banco de dados e até desenvolvimento web.',
-                nivel: 'Técnico',
-                destaque: 'Para trabalhar com segurança precisa saber de Informática'
+                link: 'https://www.sp.senac.br/cursos-tecnicos/curso-tecnico-em-informatica'
             },
             {
                 nome: 'Fundamentos do Azure',
                 descricao: 'Segurança na nuvem é o futuro! Aprenda a implementar e gerenciar soluções seguras na plataforma Azure, incluindo identity management, network security e compliance.',
-                nivel: 'Iniciante a Intermediário',
-                destaque: 'Foco em segurança cloud'
+                link: 'https://www.sp.senac.br/cursos-livres/curso-de-fundamentos-do-microsoft-azure'
+
             }
         ]
     }
@@ -390,20 +377,21 @@ function mostrarTela(nomeTela) {
     }
 }
 
+
+
 function mostrarPergunta() {
     const pergunta = perguntas[perguntaAtual];
     atualizarProgresso();
 
-    // Clona e embaralha as opções antes de exibir
     const opcoesEmbaralhadas = [...pergunta.opcoes];
     embaralharArray(opcoesEmbaralhadas);
 
+    adicionarMensagem('bot', pergunta.texto);
+
+    // Opções aparecem 300ms depois, simulando digitação curta
     setTimeout(() => {
-        adicionarMensagem('bot', pergunta.texto);
-        setTimeout(() => {
-            mostrarOpcoes(opcoesEmbaralhadas); // usa as opções embaralhadas
-        }, 1000);
-    }, 500);
+        mostrarOpcoes(opcoesEmbaralhadas);
+    }, 300);
 }
 
 
@@ -413,7 +401,7 @@ function adicionarMensagem(tipo, texto) {
 
     const avatar = document.createElement('div');
     avatar.className = 'mensagem-avatar';
-    avatar.textContent = tipo === 'bot' ? '🤖' : '👤';
+    avatar.textContent = tipo === 'bot' ? '🤖' : '🧩';
 
     const conteudo = document.createElement('div');
     conteudo.className = 'mensagem-conteudo';
@@ -495,13 +483,25 @@ function mostrarResultado(casaId) {
         descricaoElement.textContent = casa.descricao;
     }
 
-    // Adicionar características
+    const cores = [
+        'bg-primary-subtle',
+        'bg-secondary-subtle',
+        'bg-success-subtle',
+        'bg-danger-subtle',
+        'bg-warning-subtle',
+        'bg-info-subtle',
+        'bg-light-subtle',
+        'bg-dark-subtle'
+    ];
+
     const caracteristicasElement = document.getElementById('casa-caracteristicas');
     if (caracteristicasElement) {
-        caracteristicasElement.innerHTML = casa.caracteristicas.map(caracteristica =>
-            `<div class="mb-2 p-2 bg-light rounded small">${caracteristica}</div>`
-        ).join('');
+        caracteristicasElement.innerHTML = casa.caracteristicas.map(caracteristica => {
+            const corAleatoria = cores[Math.floor(Math.random() * cores.length)];
+            return `<div class="badge rounded-pill text-dark ${corAleatoria}">${caracteristica}</div>`;
+        }).join('');
     }
+
 
     // Atualizar lista de cursos com descrições detalhadas
     const cursosLista = document.getElementById('cursos-lista');
@@ -511,19 +511,17 @@ function mostrarResultado(casaId) {
         const cursoDiv = document.createElement('div');
         cursoDiv.className = 'col-md-6 mb-4';
         cursoDiv.innerHTML = `
+        <a href="${curso.link}" target="_blank">
             <div class="card h-100 border-0 shadow-sm">
                 <div class="card-body">
                     <h5 class="card-title text-primary">
                         <i class="bi bi-book-fill me-2"></i>
                         ${curso.nome}
                     </h5>
-                    <div class="mb-3">
-                        <span class="badge bg-secondary me-2">${curso.nivel}</span>
-                        <span class="badge bg-success">${curso.destaque}</span>
-                    </div>
                     <p class="card-text text-muted small lh-base">${curso.descricao}</p>
                 </div>
             </div>
+        </a>
         `;
         cursosLista.appendChild(cursoDiv);
     });

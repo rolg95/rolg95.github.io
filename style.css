@@ -195,7 +195,7 @@ body {
 }
 
 .mensagem.user .mensagem-avatar {
-    background: var(--success-gradient);
+    background: var(--info-gradient);
 }
 
 .mensagem-conteudo {
@@ -234,6 +234,19 @@ body {
     text-align: left;
     line-height: 1.4;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    animation: fadeInUp 0.4s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .opcao:hover {
@@ -778,4 +791,14 @@ body {
         bottom: 3px;
         border-width: 2px;
     }
+}
+
+.badge {
+    font-size: 0.95rem;
+    padding: 0.6em 1em;
+    transition: transform 0.2s ease;
+}
+
+.badge:hover {
+    transform: scale(1.05);
 }
