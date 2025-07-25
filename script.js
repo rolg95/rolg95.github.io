@@ -147,9 +147,9 @@ const casasTech = {
             },
             {
                 nome: 'Técnico em Informática',
-                descricao: 'Base sólida em tecnologia com foco em segurança! Aprenda desde fundamentos de redes até implementação de políticas de segurança. Formação completa para o profissional de segurança moderna.',
+                descricao: 'Ao longo do curso, você se torna especialista em hardware, software, redes, programação, banco de dados e até desenvolvimento web.',
                 nivel: 'Técnico',
-                destaque: 'Módulo especializado em segurança'
+                destaque: 'Para trabalhar com segurança precisa saber de Informática'
             },
             {
                 nome: 'Fundamentos do Azure',
