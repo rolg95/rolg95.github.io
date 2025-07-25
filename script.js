@@ -1026,7 +1026,7 @@ function adicionarEfeitosVisuais(context) {
 
         context.strokeStyle = borderGradient;
         context.lineWidth = 8;
-        context.strokeRect(4, 4, canvas.width - 8, canvas.height - 8);
+        context.strokeRect(15, 15, canvas.width - 30, canvas.height - 30);
 
     } catch (error) {
         console.error('Erro ao adicionar efeitos visuais:', error);
