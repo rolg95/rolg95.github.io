@@ -348,7 +348,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Event listeners da câmera
     btnTirarFoto.addEventListener('click', abrirCamera);
-    btnSalvarBrasao.addEventListener('click', salvarBrasao);
     btnCapturar.addEventListener('click', capturarFoto);
     btnNovaFoto.addEventListener('click', novaFoto);
     btnSalvarFoto.addEventListener('click', salvarFoto);
@@ -746,41 +745,6 @@ function salvarFoto() {
     } catch (error) {
         console.error('Erro ao salvar foto:', error);
         mostrarErroCamera('Erro ao salvar foto. Tente novamente.');
-    }
-}
-
-async function salvarBrasao() {
-    try {
-        if (casaAtual) {
-            const casa = casasTech[casaAtual];
-
-            // Método 1: Tentar converter para blob e baixar
-            try {
-                const response = await fetch(casa.img);
-                const blob = await response.blob();
-                const url = window.URL.createObjectURL(blob);
-                baixarArquivo(url, `brasao-${casaAtual}.png`);
-                window.URL.revokeObjectURL(url);
-            } catch (fetchError) {
-                // Método 2: Fallback usando canvas
-                const brasaoCanvas = await imagemParaCanvas(casa.img);
-                if (brasaoCanvas) {
-                    const dataURL = brasaoCanvas.toDataURL('image/png');
-                    baixarArquivo(dataURL, `brasao-${casaAtual}.png`);
-                } else {
-                    throw new Error('Não foi possível carregar o brasão');
-                }
-            }
-
-            // Animação de sucesso
-            btnSalvarBrasao.classList.add('share-animation');
-            setTimeout(() => {
-                btnSalvarBrasao.classList.remove('share-animation');
-            }, 600);
-        }
-    } catch (error) {
-        console.error('Erro ao salvar brasão:', error);
-        alert('Erro ao salvar brasão. Tente novamente.');
     }
 }
 
