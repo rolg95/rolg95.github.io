@@ -15,22 +15,22 @@ const casasTech = {
         cursos: [
             {
                 nome: 'Power BI',
-                descricao: 'Domine a ferramenta mais poderosa de Business Intelligence do mercado. Aprenda a criar dashboards profissionais, conectar múltiplas fontes de dados e transformar números em insights visuais que impressionam. Ideal para quem quer se destacar na análise de dados.',
+                descricao: 'Domine a ferramenta mais poderosa de Business Intelligence do mercado. Aprenda a criar dashboards profissionais.',
                 link: 'http://sp.senac.br/cursos-livres/curso-de-power-bi'
             },
             {
                 nome: 'Formação Excel Avançado',
-                descricao: 'Vá além das planilhas básicas! Descubra fórmulas avançadas, tabelas dinâmicas, macros e automações que vão revolucionar sua produtividade. Torne-se um ninja do Excel e impressione em qualquer empresa.',
+                descricao: 'Vá além das planilhas básicas! Descubra fórmulas avançadas, tabelas dinâmicas. Torne-se um ninja do Excel e impressione em qualquer empresa.',
                 link: 'https://www.sp.senac.br/cursos-livres/curso-de-formacao-excel-do-basico-ao-avancado'
             },
             {
                 nome: 'Programador de Sistemas',
-                descricao: 'Entre no mundo da programação criando sistemas completos do zero. Aprenda lógica de programação, bancos de dados, desenvolvimento web e mobile. O curso perfeito para quem quer construir o futuro digital.',
+                descricao: 'Entre no mundo da programação criando sistemas completos do zero. Aprenda lógica de programação, bancos de dados, desenvolvimento web e mobile.',
                 link: 'https://www.sp.senac.br/cursos-livres/curso-de-programador-de-sistemas'
             },
             {
                 nome: 'Introdução à Programação',
-                descricao: 'Seus primeiros passos no universo tech! Descubra os fundamentos da programação de forma didática e divertida. Aprenda a pensar como um programador e crie seus primeiros códigos.',
+                descricao: 'Seus primeiros passos no universo tech! Descubra os fundamentos da programação de forma didática e divertida.',
                 link: 'https://www.sp.senac.br/cursos-livres/curso-de-introducao-a-pratica-da-programacao'
             }
         ]
@@ -51,23 +51,23 @@ const casasTech = {
         cursos: [
             {
                 nome: 'Técnico em Informática',
-                descricao: 'Formação completa em tecnologia! Aprenda hardware, software, redes, programação e manutenção de sistemas. O curso mais abrangente para quem quer dominar todos os aspectos da informática e estar preparado para qualquer desafio tech.',
+                descricao: 'Formação completa em tecnologia! Aprenda hardware, software, redes, programação e manutenção de sistemas. ',
                 link: 'https://www.sp.senac.br/cursos-tecnicos/curso-tecnico-em-informatica'
 
             },
             {
                 nome: 'Virtualização com Hyper-V',
-                descricao: 'Domine a arte da virtualização! Aprenda a criar e gerenciar máquinas virtuais, otimizar recursos de servidor e construir infraestruturas de TI modernas e eficientes. Essencial para a era da computação em nuvem.',
+                descricao: 'Domine a arte da virtualização! Aprenda a criar e gerenciar máquinas virtuais, otimizar recursos de servidor e construir infraestruturas de TI modernas e eficientes.',
                 link: 'https://www.sp.senac.br/cursos-livres/curso-de-virtualizacao-com-windows-server-hyper-v'
             },
             {
                 nome: 'Fundamentos do Azure',
-                descricao: 'Entre no mundo da computação em nuvem com a plataforma líder do mercado. Aprenda a criar, configurar e gerenciar recursos na nuvem da Microsoft. Seu passaporte para o futuro da infraestrutura de TI.',
+                descricao: 'Entre no mundo da computação em nuvem com a plataforma líder do mercado. Aprenda a criar, configurar e gerenciar recursos na nuvem da Microsoft.',
                 link: 'https://www.sp.senac.br/cursos-livres/curso-de-fundamentos-do-microsoft-azure'
             },
             {
                 nome: 'Programador de Sistemas',
-                descricao: 'Construa sistemas robustos e escaláveis! Aprenda as melhores práticas de desenvolvimento, arquitetura de software e metodologias ágeis. Torne-se o programador que as empresas procuram.',
+                descricao: 'Construa sistemas robustos e escaláveis! Aprenda as melhores práticas de desenvolvimento, arquitetura de software e metodologias ágeis. ',
                 link: 'https://www.sp.senac.br/cursos-livres/curso-de-programador-de-sistemas'
             }
         ]
@@ -88,12 +88,12 @@ const casasTech = {
         cursos: [
             {
                 nome: 'Programador de Sistemas',
-                descricao: 'A base para criar experiências digitais incríveis! Aprenda programação orientada a objetos, desenvolvimento de interfaces e criação de aplicações interativas. Seu primeiro passo para o mundo dos games e VR.',
+                descricao: 'A base para criar experiências digitais incríveis! Aprenda programação orientada a objetos, desenvolvimento de interfaces e criação de aplicações interativas.',
                 link: 'https://www.sp.senac.br/cursos-livres/curso-de-programador-de-sistemas'
             },
             {
                 nome: 'Técnico em Informática',
-                descricao: 'Formação completa para dominar todas as tecnologias! Desde hardware para VR até programação de jogos, este curso te prepara para trabalhar com as mais diversas plataformas e dispositivos imersivos.',
+                descricao: 'Formação completa para dominar todas as tecnologias! Desde hardware até programação.',
                 link: 'https://www.sp.senac.br/cursos-tecnicos/curso-tecnico-em-informatica'
             },
             {
@@ -103,7 +103,7 @@ const casasTech = {
             },
             {
                 nome: 'Power BI',
-                descricao: 'Visualize dados como nunca antes! Crie dashboards interativos e imersivos que transformam análise de dados em experiências visuais impactantes. Perfeito para quem quer inovar na apresentação de informações.',
+                descricao: 'Visualize dados como nunca antes! Crie dashboards interativos e imersivos que transformam análise de dados em experiências visuais impactantes.',
                 link: 'https://www.sp.senac.br/cursos-livres/curso-de-power-bi'
             }
         ]
@@ -124,7 +124,7 @@ const casasTech = {
         cursos: [
             {
                 nome: 'Analista de Segurança da Informação',
-                descricao: 'Torne-se um guardião digital! Aprenda a identificar vulnerabilidades, implementar proteções avançadas e responder a incidentes de segurança. O curso mais completo para quem quer proteger o mundo digital.',
+                descricao: 'Torne-se um guardião digital! Aprenda a identificar vulnerabilidades, implementar proteções avançadas e responder a incidentes de segurança.',
                 link: 'https://www.sp.senac.br/cursos-livres/curso-de-analista-de-seguranca-da-informacao'
             },
             {
