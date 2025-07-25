@@ -3,7 +3,7 @@ const casasTech = {
         nome: 'Casa do Comandante de IA',
         emoji: '🤖',
         lema: 'Onde os dados viram insights e o futuro se constrói!',
-        descricao: 'Você é um estrategista digital nato! Esta casa reúne mentes analíticas que transformam dados em decisões inteligentes. Aqui, você aprenderá a comandar algoritmos, criar dashboards que revelam segredos ocultos nos números e usar inteligência artificial para resolver problemas complexos. É o lugar perfeito para quem vê padrões onde outros veem caos e quer liderar a revolução dos dados.',
+        descricao: 'Você é um estrategista digital nato! Esta casa reúne mentes analíticas que transformam dados em decisões inteligentes. Aqui, você aprenderá a comandar algoritmos, criar dashboards que revelam segredos ocultos nos números e usar inteligência artificial para resolver problemas complexos.',
         caracteristicas: [
             '📊 Análise de dados e Business Intelligence',
             '🧠 Inteligência Artificial e Machine Learning',
@@ -43,7 +43,7 @@ const casasTech = {
         nome: 'Casa do Engenheiro de Automação e Robótica',
         emoji: '⚙️',
         lema: 'Persistência, lógica e cafeína no sangue!',
-        descricao: 'Você é um construtor nato! Esta casa é o lar dos makers, dos que gostam de colocar a mão na massa e ver suas criações ganharem vida. Aqui você aprenderá a automatizar processos, programar robôs, criar sistemas inteligentes e transformar ideias em realidade física. É o lugar ideal para quem vê um problema e já pensa "como posso automatizar isso?"',
+        descricao: 'Você é um construtor nato! Esta casa é o lar dos makers, dos que gostam de colocar a mão na massa e ver suas criações ganharem vida.',
         caracteristicas: [
             '🤖 Robótica e automação industrial',
             '🔧 Programação de sistemas embarcados',
@@ -83,7 +83,7 @@ const casasTech = {
         nome: 'Casa do Mestre da Realidade Virtual',
         emoji: '🕶️',
         lema: 'Aqui a realidade é só o começo!',
-        descricao: 'Você é um visionário digital! Esta casa abriga os criadores de mundos, os que transformam imaginação em experiências imersivas. Aqui você aprenderá a desenvolver jogos, criar experiências em realidade virtual e aumentada, design interfaces incríveis e contar histórias através da tecnologia. É o lugar perfeito para quem vê o mundo não como ele é, mas como poderia ser.',
+        descricao: 'Você é um visionário digital! Esta casa abriga os criadores de mundos, os que transformam imaginação em experiências imersivas.',
         caracteristicas: [
             '🎮 Desenvolvimento de jogos e aplicações',
             '🥽 Realidade Virtual e Aumentada',
@@ -123,7 +123,7 @@ const casasTech = {
         nome: 'Casa Hackeando o Futuro',
         emoji: '🛡️',
         lema: 'Protegendo redes, criando liberdade digital!',
-        descricao: 'Você é um guardião digital! Esta casa reúne os defensores do ciberespaço, aqueles que protegem dados, sistemas e pessoas no mundo digital. Aqui você aprenderá sobre segurança da informação, ethical hacking, proteção de redes e forense digital. É o lugar ideal para quem quer ser um herói nos bastidores, protegendo o mundo digital dos vilões cibernéticos.',
+        descricao: 'Você é um guardião digital! Esta casa reúne os defensores do ciberespaço, aqueles que protegem dados, sistemas e pessoas no mundo digital. ',
         caracteristicas: [
             '🔐 Segurança da informação e criptografia',
             '🕵️ Ethical hacking e testes de penetração',
