@@ -151,6 +151,12 @@ body {
     border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
 }
 
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease-in-out;
+}
+
 /* Progress Bar */
 .progress-bar {
     background: var(--secondary-gradient) !important;
