@@ -507,3 +507,246 @@ body {
     height: 1rem;
 }
 
+
+/* Overlays da Câmera - Efeitos Visuais */
+.camera-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 10;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Logo Senac overlay */
+.senac-logo-overlay {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background: rgba(0, 0, 0, 0.85);
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 2px solid #FF6B35;
+    color: white;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.senac-logo-overlay .logo-text {
+    font-size: 18px;
+    font-weight: bold;
+    color: #FF6B35;
+    margin: 0;
+    line-height: 1;
+}
+
+.senac-logo-overlay .logo-subtitle {
+    font-size: 10px;
+    color: white;
+    margin: 0;
+    line-height: 1;
+}
+
+/* Hashtags overlay */
+.hashtags-overlay {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, rgba(0,0,0,0.3), rgba(0,0,0,0.8));
+    padding: 8px 12px;
+    border-radius: 8px;
+    text-align: right;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.hashtags-overlay .hashtag-main {
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    margin: 0;
+    line-height: 1;
+}
+
+.hashtags-overlay .hashtag-secondary {
+    font-size: 12px;
+    color: #FFD700;
+    margin: 0;
+    line-height: 1;
+}
+
+/* Moldura decorativa */
+.frame-overlay {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    border: 4px solid transparent;
+    border-radius: 12px;
+    background: linear-gradient(45deg, #FF6B35, #00FFFF, #FF6B35) border-box;
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    animation: borderGlow 3s ease-in-out infinite;
+}
+
+@keyframes borderGlow {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 1; }
+}
+
+/* Partículas brilhantes */
+.particles-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,0.9), transparent),
+        radial-gradient(2px 2px at 40% 70%, rgba(255,215,0,0.8), transparent),
+        radial-gradient(1px 1px at 90% 40%, rgba(255,255,255,0.9), transparent),
+        radial-gradient(1px 1px at 60% 10%, rgba(0,255,255,0.8), transparent),
+        radial-gradient(2px 2px at 80% 80%, rgba(255,255,255,0.9), transparent),
+        radial-gradient(1px 1px at 10% 60%, rgba(255,215,0,0.8), transparent),
+        radial-gradient(1px 1px at 30% 90%, rgba(0,255,255,0.7), transparent),
+        radial-gradient(2px 2px at 70% 20%, rgba(255,255,255,0.8), transparent);
+    background-size: 100% 100%;
+    animation: sparkle 4s ease-in-out infinite;
+}
+
+@keyframes sparkle {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+/* Scan lines tech */
+.scan-lines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 255, 255, 0.03) 2px,
+        rgba(0, 255, 255, 0.03) 4px
+    );
+    animation: scanMove 2s linear infinite;
+}
+
+@keyframes scanMove {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(4px); }
+}
+
+/* Brasão com efeitos especiais */
+#overlay-brasao {
+    animation: float 3s ease-in-out infinite, glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes glow {
+    0% { 
+        box-shadow: 0 0 20px rgba(255,255,255,0.8), 0 0 40px rgba(0,255,255,0.4) !important;
+    }
+    100% { 
+        box-shadow: 0 0 30px rgba(255,255,255,1), 0 0 60px rgba(0,255,255,0.6) !important;
+    }
+}
+
+/* Responsivo para mobile */
+@media (max-width: 768px) {
+    #overlay-brasao {
+        max-width: 100px !important;
+    }
+    
+    .senac-logo-overlay {
+        bottom: 15px;
+        left: 15px;
+        padding: 6px 10px;
+    }
+    
+    .senac-logo-overlay .logo-text {
+        font-size: 16px;
+    }
+    
+    .senac-logo-overlay .logo-subtitle {
+        font-size: 9px;
+    }
+    
+    .hashtags-overlay {
+        bottom: 15px;
+        right: 15px;
+        padding: 6px 10px;
+    }
+    
+    .hashtags-overlay .hashtag-main {
+        font-size: 12px;
+    }
+    
+    .hashtags-overlay .hashtag-secondary {
+        font-size: 10px;
+    }
+    
+    .frame-overlay {
+        top: 5px;
+        left: 5px;
+        right: 5px;
+        bottom: 5px;
+        border-width: 3px;
+    }
+}
+
+@media (max-width: 576px) {
+    #overlay-brasao {
+        max-width: 80px !important;
+    }
+    
+    .senac-logo-overlay {
+        bottom: 10px;
+        left: 10px;
+        padding: 4px 8px;
+    }
+    
+    .senac-logo-overlay .logo-text {
+        font-size: 14px;
+    }
+    
+    .senac-logo-overlay .logo-subtitle {
+        font-size: 8px;
+    }
+    
+    .hashtags-overlay {
+        bottom: 10px;
+        right: 10px;
+        padding: 4px 8px;
+    }
+    
+    .hashtags-overlay .hashtag-main {
+        font-size: 11px;
+    }
+    
+    .hashtags-overlay .hashtag-secondary {
+        font-size: 9px;
+    }
+    
+    .frame-overlay {
+        top: 3px;
+        left: 3px;
+        right: 3px;
+        bottom: 3px;
+        border-width: 2px;
+    }
+}
+
