@@ -326,25 +326,36 @@ const cameraError = document.getElementById('camera-error');
 document.addEventListener('DOMContentLoaded', function () {
     mostrarTela('inicio');
 
+    // Recuperar elementos do DOM com segurança
+    const btnIniciar = document.getElementById('btn-iniciar');
+    const btnRefazer = document.getElementById('btn-refazer');
+    const btnTirarFoto = document.getElementById('btn-tirar-foto');
+    const btnCapturar = document.getElementById('btn-capturar');
+    const btnNovaFoto = document.getElementById('btn-nova-foto');
+    const btnSalvarFoto = document.getElementById('btn-salvar-foto');
+    const btnCompartilhar = document.getElementById('btn-compartilhar');
+    const cameraModalEl = document.getElementById('cameraModal');
+
     // Inicializar modal
-    cameraModal = new bootstrap.Modal(document.getElementById('cameraModal'));
+    const cameraModal = new bootstrap.Modal(cameraModalEl);
 
-    // Event listeners básicos
-    btnIniciar.addEventListener('click', iniciarChat);
-    btnRefazer.addEventListener('click', reiniciarApp);
+    // Só adiciona os listeners se os elementos existem
+    if (btnIniciar) btnIniciar.addEventListener('click', iniciarChat);
+    if (btnRefazer) btnRefazer.addEventListener('click', reiniciarApp);
+    if (btnTirarFoto) btnTirarFoto.addEventListener('click', abrirCamera);
+    if (btnCapturar) btnCapturar.addEventListener('click', capturarFoto);
+    if (btnNovaFoto) btnNovaFoto.addEventListener('click', novaFoto);
+    if (btnSalvarFoto) btnSalvarFoto.addEventListener('click', salvarFoto);
+    if (btnCompartilhar) btnCompartilhar.addEventListener('click', compartilharInstagram);
 
-    // Event listeners da câmera
-    btnTirarFoto.addEventListener('click', abrirCamera);
-    btnCapturar.addEventListener('click', capturarFoto);
-    btnNovaFoto.addEventListener('click', novaFoto);
-    btnSalvarFoto.addEventListener('click', salvarFoto);
-    btnCompartilhar.addEventListener('click', compartilharInstagram);
+    if (cameraModalEl) {
+        cameraModalEl.addEventListener('hidden.bs.modal', function () {
+            pararCamera();
+        });
+    }
 
-    // Limpar stream quando modal fechar
-    document.getElementById('cameraModal').addEventListener('hidden.bs.modal', function () {
-        pararCamera();
-    });
 });
+
 
 // Funções principais do chat (mantidas do código original)
 function iniciarChat() {
