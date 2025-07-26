@@ -337,7 +337,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const cameraModalEl = document.getElementById('cameraModal');
 
     // Inicializar modal
-    const cameraModal = new bootstrap.Modal(cameraModalEl);
+    cameraModal = new bootstrap.Modal(document.getElementById('cameraModal'));
+
 
     // Só adiciona os listeners se os elementos existem
     if (btnIniciar) btnIniciar.addEventListener('click', iniciarChat);
@@ -611,12 +612,20 @@ async function abrirCamera() {
     try {
         cameraError.classList.add('d-none');
 
-        // Configurar overlay do brasão
+        // Verifica se as permissões estão concedidas
+        const permissao = await navigator.permissions.query({ name: 'camera' });
+
+        if (permissao.state === 'denied') {
+            mostrarErroCamera('Permissão da câmera foi negada. Verifique as configurações do navegador.');
+            return;
+        }
+
+        // Atualiza brasão se houver
         if (casaAtual) {
             overlayBrasao.src = casasTech[casaAtual].img;
         }
 
-        // Solicitar acesso à câmera
+        // Solicita acesso à câmera
         stream = await navigator.mediaDevices.getUserMedia({
             video: {
                 facingMode: 'user',
@@ -628,15 +637,19 @@ async function abrirCamera() {
         video.srcObject = stream;
         video.play();
 
-        // Resetar estado
         resetarEstadoCamera();
-
-        // Mostrar modal
         cameraModal.show();
 
     } catch (error) {
         console.error('Erro ao acessar câmera:', error);
-        mostrarErroCamera('Não foi possível acessar a câmera. Verifique as permissões do navegador.');
+
+        if (error.name === 'NotAllowedError') {
+            mostrarErroCamera('Você bloqueou o acesso à câmera. Reative nas permissões do navegador.');
+        } else if (error.name === 'NotFoundError') {
+            mostrarErroCamera('Nenhuma câmera encontrada no dispositivo.');
+        } else {
+            mostrarErroCamera('Não foi possível acessar a câmera. Verifique as permissões do navegador.');
+        }
     }
 }
 
@@ -687,6 +700,7 @@ async function capturarFoto() {
 
         // Textos decorativos
         await adicionarTextoDecorativo(context);
+
 
         // Efeitos visuais
         adicionarEfeitosVisuais(context);
