@@ -3,7 +3,7 @@ const casasTech = {
         nome: 'Casa do Comandante de IA',
         emoji: '🤖',
         lema: 'Onde os dados viram insights e o futuro se constrói!',
-        descricao: 'Você é um estrategista digital nato! Esta casa reúne mentes analíticas que transformam dados em decisões inteligentes. Aqui, você aprenderá a comandar algoritmos, criar dashboards que revelam segredos ocultos nos números e usar inteligência artificial para resolver problemas complexos.',
+        descricao: 'Você é um estrategista digital nato! Esta casa reúne mentes analíticas que transformam dados em decisões inteligentes. Aqui, a lógica é sua aliada e a criatividade, sua arma secreta.',
         caracteristicas: [
             '📊 Análise de dados e Business Intelligence',
             '🧠 Inteligência Artificial e Machine Learning',
@@ -45,7 +45,7 @@ const casasTech = {
             '🔧 Programação de sistemas embarcados',
             '⚡ Internet das Coisas (IoT)',
             '🏭 Controle de processos automatizados',
-            '🛠️ Prototipagem e desenvolvimento de hardware'
+            '🛠️ Prototipagem de hardware'
         ],
         img: 'img/eia.png',
         cursos: [
