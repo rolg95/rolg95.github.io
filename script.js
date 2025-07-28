@@ -152,7 +152,7 @@ const casasTech = {
 const perguntas = [
     {
         id: 1,
-        texto: "E aí! 👋 Bem-vindo ao universo tech do Senac! Vamos descobrir qual área combina mais com você? Primeiro, como você gosta de passar seu tempo livre?",
+        texto: "E aí! 👋 Bem-vindo ao universo tech do Senac! Vamos descobrir qual área combina mais com você? Primeiro, qual frase mais se encaixa com você?",
         opcoes: [
             {
                 texto: "Organizando planilhas, listas ou analisando informações 📊📋",
@@ -174,22 +174,22 @@ const perguntas = [
     },
     {
         id: 2,
-        texto: "Legal! 🔥 Na escola, qual matéria você sempre se deu melhor?",
+        texto: "Legal! Na escola, qual matéria você sempre se deu melhor?",
         opcoes: [
             {
-                texto: "Matemática e cálculos - adoro números e estatísticas! 🧮📈",
+                texto: "Matemática ou cálculos - adoro números e estatísticas! 🧮📈",
                 pontos: { comandante_ia: 3, engenheiro_automacao: 2, hacker_futuro: 1 }
             },
             {
-                texto: "Física e química - gosto de entender como as coisas funcionam 🔬⚗️",
+                texto: "Física ou química - gosto de entender como as coisas funcionam 🔬⚗️",
                 pontos: { engenheiro_automacao: 3, hacker_futuro: 1, comandante_ia: 2 }
             },
             {
-                texto: "Artes e português - sou criativo e gosto de me expressar 🎭📝",
+                texto: "Artes ou português - sou criativo e gosto de me expressar 🎭📝",
                 pontos: { mestre_vr: 3, comandante_ia: 1, engenheiro_automacao: 1 }
             },
             {
-                texto: "História e geografia - gosto de investigar e descobrir coisas 🗺️🔍",
+                texto: "História ou geografia - gosto de investigar e descobrir coisas 🗺️🔍",
                 pontos: { hacker_futuro: 3, mestre_vr: 1, comandante_ia: 2 }
             }
         ]
@@ -324,6 +324,11 @@ const cameraError = document.getElementById('camera-error');
 
 // Event Listeners
 document.addEventListener('DOMContentLoaded', function () {
+    if (isWebView()) {
+        redirecionarParaNavegador();
+        return; // Para por aqui, não carrega o resto
+    }
+
     mostrarTela('inicio');
 
     // Recuperar elementos do DOM com segurança
@@ -1096,4 +1101,32 @@ function desenharRetanguloArredondado(ctx, x, y, width, height, radius) {
     ctx.lineTo(x, y + radius);
     ctx.quadraticCurveTo(x, y, x + radius, y);
     ctx.closePath();
+}
+
+function isWebView() {
+    // Não redirecionar em desenvolvimento
+    const isLocal = ['localhost', '127.0.0.1'].includes(window.location.hostname) ||
+        window.location.hostname.startsWith('192.168.');
+
+    if (isLocal) return false;
+
+    // Detectar WebViews comuns
+    const ua = navigator.userAgent || '';
+    return /FBAN|FBAV|Instagram|WhatsApp|Line|Twitter|TikTok|Snapchat/i.test(ua);
+}
+
+// REDIRECIONAMENTO SIMPLES
+function redirecionarParaNavegador() {
+    const url = window.location.href;
+
+    if (/Android/i.test(navigator.userAgent)) {
+        // Android - tentar Chrome
+        window.location.href = `intent://${url.replace(/^https?:\/\//, '')}#Intent;scheme=https;package=com.android.chrome;end`;
+    } else if (/iPhone|iPad/i.test(navigator.userAgent)) {
+        // iOS - tentar Safari
+        window.location.href = url;
+    } else {
+        // Outros - nova janela
+        window.open(url, '_blank');
+    }
 }

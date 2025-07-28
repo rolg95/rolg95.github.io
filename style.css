@@ -306,18 +306,6 @@ body {
     box-shadow: var(--shadow-lg);
 }
 
-/* Modal da Câmera */
-.modal-content {
-    border: none;
-    border-radius: 20px;
-    box-shadow: var(--shadow-xl);
-}
-
-.modal-header {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 20px 20px 0 0;
-}
-
 .modal-body {
     padding: 2rem;
 }
@@ -464,10 +452,6 @@ body {
 
     .casa-brasao {
         font-size: 3.5rem;
-    }
-
-    .card-body {
-        padding: 1.5rem !important;
     }
 
     .opcao {
