@@ -2,16 +2,25 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Entrega Quântica (Versão Definitiva)</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>A Entrega Quântica (Versão Definitiva) — Bootstrap</title>
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+
+    <!-- Fonte -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+
     <style>
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+            color: #e5e7eb;
+            /* text-gray-200 */
+            min-height: 100vh;
             background: linear-gradient(-45deg, #0f172a, #1e293b, #0f172a, #334155);
             background-size: 400% 400%;
             animation: gradiente-fundo 20s ease infinite;
@@ -31,11 +40,20 @@
             }
         }
 
+        .gradient-title {
+            background: linear-gradient(90deg, #f59e0b, #f97316);
+            /* amber-400 -> orange-500 */
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
         .cartao {
             background-color: rgba(30, 41, 59, 0.7);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
         }
 
         .mapa-container {
@@ -167,65 +185,96 @@
             }
         }
 
-        .botao-desativado {
-            opacity: 0.5;
+        .btn-gradient {
+            border: none;
+            color: #fff;
+            font-weight: 700;
+            background: linear-gradient(90deg, #10b981, #22c55e);
+            transition: transform .15s ease, filter .15s ease;
+            box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+        }
+
+        .btn-gradient:hover {
+            background: linear-gradient(90deg, #059669, #16a34a);
+            transform: translateY(-1px) scale(1.01);
+            filter: brightness(1.02);
+        }
+
+        .btn-gradient:disabled {
+            opacity: .5;
             cursor: not-allowed;
         }
+
+        .text-muted-qt {
+            color: #9ca3af;
+        }
+
+        /* cinza suave */
     </style>
 </head>
 
-<body class="text-gray-200 flex flex-col items-center min-h-screen p-4 sm:p-6">
+<body class="d-flex flex-column">
 
-    <div class="w-full max-w-5xl text-center">
-        <header class="mb-8">
-            <h1
-                class="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500 mb-2">
-                A Entrega do Lanche
-            </h1>
-            <p class="text-lg text-gray-400">Uma corrida de entregas: Clássica vs. Quântica</p>
+    <main class="container py-4 py-sm-5">
+        <header class="text-center mb-4 mb-sm-5">
+            <h1 class="fw-bold display-5 mb-2 gradient-title">A Entrega do Lanche</h1>
+            <p class="lead text-muted-qt mb-0">Uma corrida de entregas: Clássica vs. Quântica</p>
         </header>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-8">
+        <div class="row g-4 g-md-5 mb-4 mb-md-5">
             <!-- Coluna Clássica -->
-            <div class="cartao rounded-2xl p-6 text-center flex flex-col">
-                <h2 class="text-3xl font-bold text-sky-400 mb-4">Entrega Clássica</h2>
-                <p class="text-gray-300 mb-6 flex-grow">A rota é traçada por tentativa e erro. Se o caminho é ruim, ele
-                    é apagado para tentar outro.</p>
-                <div class="mapa-container" id="mapa-classico"></div>
+            <div class="col-12 col-md-6">
+                <div class="cartao p-4 p-md-5 text-center d-flex flex-column h-100">
+                    <h2 class="h2 fw-bold mb-3" style="color:#38bdf8;">Entrega Clássica</h2>
+                    <p class="text-muted-qt mb-4 flex-grow-1">
+                        A rota é traçada por tentativa e erro. Se o caminho é ruim, ele é apagado para tentar outro.
+                    </p>
+                    <div class="mapa-container" id="mapa-classico"></div>
+                </div>
             </div>
 
             <!-- Coluna Quântica -->
-            <div class="cartao rounded-2xl p-6 text-center flex flex-col">
-                <h2 class="text-3xl font-bold text-emerald-400 mb-4">Entrega Quântica</h2>
-                <p class="text-gray-300 mb-6 flex-grow">Todas as rotas são traçadas ao mesmo tempo (<strong
-                        class="text-purple-400">superposição</strong>) e a melhor é escolhida.</p>
-                <div class="mapa-container" id="mapa-quantico"></div>
+            <div class="col-12 col-md-6">
+                <div class="cartao p-4 p-md-5 text-center d-flex flex-column h-100">
+                    <h2 class="h2 fw-bold mb-3" style="color:#34d399;">Entrega Quântica</h2>
+                    <p class="text-muted-qt mb-4 flex-grow-1">
+                        Todas as rotas são traçadas ao mesmo tempo (<strong
+                            style="color:#a78bfa;">superposição</strong>) e a melhor é escolhida.
+                    </p>
+                    <div class="mapa-container" id="mapa-quantico"></div>
+                </div>
             </div>
         </div>
 
-        <div class="flex justify-center mb-8">
-            <button id="btn-iniciar"
-                class="bg-gradient-to-r from-emerald-500 to-green-500 hover:from-emerald-600 hover:to-green-600 text-white font-bold py-4 px-10 rounded-lg text-xl transition-all transform hover:scale-105 shadow-lg">
+        <div class="d-flex justify-content-center mb-4 mb-md-5">
+            <button id="btn-iniciar" class="btn btn-gradient btn-lg px-5 py-3">
                 Iniciar Entregas!
             </button>
         </div>
 
-        <div id="container-explicacao" class="hidden w-full">
-            <div class="cartao rounded-2xl p-6 md:p-8 text-left max-w-4xl mx-auto">
-                <h3 class="text-3xl font-bold mb-4 text-center text-emerald-400">🛸 A Rota Quântica foi a ideal!</h3>
-                <p class="text-lg text-gray-300">
+        <div id="container-explicacao" class="d-none w-100">
+            <div class="cartao p-4 p-md-5 text-start mx-auto" style="max-width: 56rem;">
+                <h3 class="h2 fw-bold mb-3 text-center" style="color:#34d399;">🛸 A Rota Quântica foi a ideal!</h3>
+                <p class="fs-5 text-muted-qt mb-2">
                     A abordagem clássica perdeu tempo testando e apagando rotas ruins. A abordagem quântica usou a
-                    **superposição** para visualizar todos os cenários de uma vez e a **medição** para "colapsar" na
-                    melhor solução instantaneamente.
+                    <strong>superposição</strong> para visualizar todos os cenários de uma vez e a
+                    <strong>medição</strong> para
+                    “colapsar” na melhor solução instantaneamente.
                 </p>
-                <p class="text-lg text-gray-300 mt-2">
-                    É exatamente assim que a computação quântica resolve problemas de **otimização** no mundo real:
+                <p class="fs-5 text-muted-qt mb-0">
+                    É exatamente assim que a computação quântica resolve problemas de <strong>otimização</strong> no
+                    mundo real:
                     encontrando a melhor rota para frotas de aviões, a combinação perfeita de investimentos na bolsa ou
                     a estrutura molecular ideal para um novo remédio.
                 </p>
             </div>
         </div>
-    </div>
+    </main>
+
+    <!-- Bootstrap Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
 
     <script>
         const mapaClassico = document.getElementById('mapa-classico');
@@ -237,53 +286,50 @@
         const ruasPath = "M 20 20 L 80 20 L 80 80 L 20 80 Z M 50 20 L 50 80 M 20 50 L 80 50";
 
         const mapaClassicoSVG = `
-        <svg class="mapa-svg" viewBox="0 0 100 100">
-            <path class="ruas" d="${ruasPath}" /> ${pontosSVG}
-            <path class="tracado-animado tracado-classico tentativa-1" d="M 20 20 L 80 20 L 80 50" />
-            <text class="emoji-texto erro-simbolo erro-1" x="78" y="48">🚫</text>
-            <path class="tracado-animado tracado-classico tentativa-2" d="M 20 20 L 20 50 L 50 50" />
-            <text class="emoji-texto erro-simbolo erro-2" x="48" y="48">🚫</text>
-            <path class="tracado-animado tracado-classico solucao-classica" d="M 20 20 L 20 80 L 80 80" />
-        </svg>`;
+      <svg class="mapa-svg" viewBox="0 0 100 100">
+        <path class="ruas" d="${ruasPath}" /> ${pontosSVG}
+        <path class="tracado-animado tracado-classico tentativa-1" d="M 20 20 L 80 20 L 80 50" />
+        <text class="emoji-texto erro-simbolo erro-1" x="78" y="48">🚫</text>
+        <path class="tracado-animado tracado-classico tentativa-2" d="M 20 20 L 20 50 L 50 50" />
+        <text class="emoji-texto erro-simbolo erro-2" x="48" y="48">🚫</text>
+        <path class="tracado-animado tracado-classico solucao-classica" d="M 20 20 L 20 80 L 80 80" />
+      </svg>`;
 
         const mapaQuanticoSVG = `
-        <svg class="mapa-svg" viewBox="0 0 100 100">
-            <path class="ruas" d="${ruasPath}" /> ${pontosSVG}
-            <!-- Rotas fantasmas -->
-            <path class="tracado-animado tracado-fantasma" d="M 20 20 L 80 20 L 80 80" />
-            <path class="tracado-animado tracado-fantasma" d="M 20 20 L 50 20 L 50 80 L 80 80" />
-            <path class="tracado-animado tracado-fantasma" d="M 20 20 L 20 50 L 80 50 L 80 80" />
-            <!-- Rota da solução -->
-            <path class="tracado-animado tracado-solucao" d="M 20 20 L 20 80 L 80 80" />
-        </svg>`;
+      <svg class="mapa-svg" viewBox="0 0 100 100">
+        <path class="ruas" d="${ruasPath}" /> ${pontosSVG}
+        <!-- Rotas fantasmas -->
+        <path class="tracado-animado tracado-fantasma" d="M 20 20 L 80 20 L 80 80" />
+        <path class="tracado-animado tracado-fantasma" d="M 20 20 L 50 20 L 50 80 L 80 80" />
+        <path class="tracado-animado tracado-fantasma" d="M 20 20 L 20 50 L 80 50 L 80 80" />
+        <!-- Rota da solução -->
+        <path class="tracado-animado tracado-solucao" d="M 20 20 L 20 80 L 80 80" />
+      </svg>`;
 
         function prepararDemonstracao() {
             mapaClassico.innerHTML = mapaClassicoSVG;
             mapaQuantico.innerHTML = mapaQuanticoSVG;
-            containerExplicacao.classList.add('hidden');
+            containerExplicacao.classList.add('d-none');
             btnIniciar.disabled = false;
-            btnIniciar.classList.remove('botao-desativado');
-            btnIniciar.innerText = "Iniciar Entregas!";
+            btnIniciar.textContent = "Iniciar Entregas!";
         }
 
         function iniciarAnimacoes() {
             btnIniciar.disabled = true;
-            btnIniciar.classList.add('botao-desativado');
-            btnIniciar.innerText = "Calculando rotas...";
+            btnIniciar.textContent = "Calculando rotas...";
 
             mapaClassico.querySelector('svg').classList.add('animar-classico');
             mapaQuantico.querySelector('svg').classList.add('animar-quantico');
 
             setTimeout(() => {
-                containerExplicacao.classList.remove('hidden');
-                btnIniciar.innerText = "Reiniciar";
+                containerExplicacao.classList.remove('d-none');
+                btnIniciar.textContent = "Reiniciar";
                 btnIniciar.disabled = false;
-                btnIniciar.classList.remove('botao-desativado');
             }, 9000);
         }
 
         btnIniciar.addEventListener('click', () => {
-            if (btnIniciar.innerText.includes("Iniciar")) {
+            if (btnIniciar.textContent.includes("Iniciar")) {
                 iniciarAnimacoes();
             } else {
                 prepararDemonstracao();
