@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cifra de César - Simulador | SENAC Rio Preto</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .card-principal {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Container das Rodas - Responsivo */
+        .container-rodas {
+            position: relative;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .rodas-wrapper {
+            position: relative;
+            width: 300px;
+            height: 300px;
+        }
+
+        .roda {
+            position: absolute;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid #2c3e50;
+        }
+
+        .roda-externa {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            top: 0;
+            left: 0;
+        }
+
+        .roda-interna {
+            width: 200px;
+            height: 200px;
+            background: #ffffff;
+            top: 50px;
+            left: 50px;
+            transition: transform 0.8s ease;
+            z-index: 2;
+        }
+
+        .centro-roda {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: #2c3e50;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            z-index: 3;
+            border: 2px solid white;
+        }
+
+        .letra-roda {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .letra-roda.externa {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .letra-roda.interna {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+        }
+
+        /* Botões de controle */
+        .btn-controle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            margin: 0 15px;
+        }
+
+        .display-deslocamento {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 15px;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0 20px;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        /* Área de resultado */
+        .area-resultado {
+            background: #f8f9fa;
+            border: 2px dashed #667eea;
+            border-radius: 10px;
+            padding: 20px;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 16px;
+            color: #2c3e50;
+            word-break: break-word;
+        }
+
+        .exemplo {
+            background: linear-gradient(135deg, #17a2b8, #138496);
+            color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: none;
+        }
+
+        /* Responsividade para mobile */
+        @media (max-width: 768px) {
+            .rodas-wrapper {
+                width: 250px;
+                height: 250px;
+            }
+
+            .roda-externa {
+                width: 250px;
+                height: 250px;
+            }
+
+            .roda-interna {
+                width: 170px;
+                height: 170px;
+                top: 40px;
+                left: 40px;
+            }
+
+            .centro-roda {
+                width: 50px;
+                height: 50px;
+                font-size: 16px;
+            }
+
+            .letra-roda {
+                width: 20px;
+                height: 20px;
+                font-size: 10px;
+            }
+
+            .display-deslocamento {
+                font-size: 20px;
+                padding: 10px 20px;
+                margin: 0 10px;
+            }
+
+            .btn-controle {
+                width: 40px;
+                height: 40px;
+                margin: 0 10px;
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .rodas-wrapper {
+                width: 200px;
+                height: 200px;
+            }
+
+            .roda-externa {
+                width: 200px;
+                height: 200px;
+            }
+
+            .roda-interna {
+                width: 140px;
+                height: 140px;
+                top: 30px;
+                left: 30px;
+            }
+
+            .centro-roda {
+                width: 40px;
+                height: 40px;
+                font-size: 14px;
+            }
+
+            .letra-roda {
+                width: 18px;
+                height: 18px;
+                font-size: 9px;
+            }
+        }
+
+        /* Animações */
+        .btn-animado {
+            transition: all 0.3s ease;
+        }
+
+        .btn-animado:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Notificação */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1050;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container">
+            <span class="navbar-brand mb-0 h1">
+                <i class="fas fa-lock me-2"></i>Cifra de César
+            </span>
+            <span class="navbar-text">
+                SENAC Rio Preto - Casa Aberta
+            </span>
+        </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <div class="container my-4">
+        <!-- Card Principal -->
+        <div class="card card-principal">
+            <div class="card-body p-4">
+
+                <!-- Título e Explicação -->
+                <div class="alert alert-info">
+                    <strong><i class="fas fa-info-circle me-1"></i>Como funciona:</strong>
+                    <p class="mb-2">
+                        A <strong>Cifra de César</strong> é um dos métodos de criptografia mais antigos, usado por Júlio
+                        César para proteger mensagens militares.
+                        Ela funciona substituindo cada letra do alfabeto por outra que está um número fixo de posições
+                        (<strong>deslocamento</strong>) à frente.
+                    </p>
+                    <p class="mb-2">
+                        <strong>Exemplo com deslocamento = 3:</strong><br>
+                        • A → D, B → E, C → F, ..., Z → C (o alfabeto "dá a volta").<br>
+                        • "OLA" se torna "ROD".
+                    </p>
+                    <p class="mb-0">
+                        Para decifrar, basta retroceder o mesmo número de posições. Experimente ajustar as rodas abaixo
+                        para ver a transformação em tempo real!
+                    </p>
+                </div>
+
+                <div class="row g-4">
+                    <!-- Coluna das Rodas -->
+                    <div class="col-lg-6">
+                        <h4 class="text-center mb-3">
+                            <i class="fas fa-sync-alt me-2"></i>Rodas da Cifra
+                        </h4>
+
+                        <!-- Rodas -->
+                        <div class="container-rodas mb-4">
+                            <div class="rodas-wrapper">
+                                <div class="roda roda-externa" id="rodaExterna"></div>
+                                <div class="roda roda-interna" id="rodaInterna"></div>
+                                <div class="centro-roda" id="centroRoda">3</div>
+                            </div>
+                        </div>
+
+                        <!-- Controles de Deslocamento -->
+                        <div class="d-flex justify-content-center align-items-center mb-4">
+                            <button class="btn btn-danger btn-controle btn-animado" onclick="mudarDeslocamento(-1)">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <div class="display-deslocamento" id="displayDeslocamento">3</div>
+                            <button class="btn btn-success btn-controle btn-animado" onclick="mudarDeslocamento(1)">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+
+                        <div class="text-center">
+                            <small class="text-muted">
+                                <i class="fas fa-keyboard me-1"></i>
+                                Use as setas ↑↓ do teclado para mudar o deslocamento
+                            </small>
+                        </div>
+                    </div>
+
+                    <!-- Coluna dos Controles -->
+                    <div class="col-lg-6">
+                        <h4 class="mb-3">
+                            <i class="fas fa-edit me-2"></i>Digite sua Mensagem
+                        </h4>
+
+                        <!-- Campo de Entrada -->
+                        <div class="mb-3">
+                            <label for="textoMensagem" class="form-label">Mensagem:</label>
+                            <textarea class="form-control" id="textoMensagem" rows="4"
+                                placeholder="Digite aqui sua mensagem secreta..."></textarea>
+                        </div>
+
+                        <!-- Botões de Ação -->
+                        <div class="row g-2 mb-3">
+                            <div class="col-6">
+                                <button class="btn btn-primary w-100 btn-animado" onclick="criptografarMensagem()">
+                                    <i class="fas fa-lock me-1"></i>Criptografar
+                                </button>
+                            </div>
+                            <div class="col-6">
+                                <button class="btn btn-outline-primary w-100 btn-animado"
+                                    onclick="descriptografarMensagem()">
+                                    <i class="fas fa-unlock me-1"></i>Descriptografar
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Resultado -->
+                        <div class="mb-3">
+                            <label class="form-label">Resultado:</label>
+                            <div class="area-resultado" id="areaResultado">
+                                Sua mensagem aparecerá aqui...
+                            </div>
+                        </div>
+
+                        <!-- Botões Auxiliares -->
+                        <div class="row g-2">
+                            <div class="col-4">
+                                <button class="btn btn-outline-secondary w-100 btn-animado" onclick="limparTudo()">
+                                    <i class="fas fa-eraser"></i> Limpar
+                                </button>
+                            </div>
+                            <div class="col-4">
+                                <button class="btn btn-outline-warning w-100 btn-animado" onclick="exemploAleatorio()">
+                                    <i class="fas fa-dice"></i> Exemplo
+                                </button>
+                            </div>
+                            <div class="col-4">
+                                <button class="btn btn-outline-success w-100 btn-animado" id="btnCopiar"
+                                    onclick="copiarResultado()" style="display: none;">
+                                    <i class="fas fa-copy"></i> Copiar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Exemplos Históricos -->
+                <div class="mt-5">
+                    <h4 class="mb-3">
+                        <i class="fas fa-scroll me-2"></i>Exemplos Históricos
+                    </h4>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <div class="card exemplo h-100">
+                                <div class="card-body text-center">
+                                    <h6><i class="fas fa-crown me-1"></i>Mensagem de César</h6>
+                                    <p class="small mb-2">ALEA IACTA EST<br><em>"A sorte está lançada"</em></p>
+                                    <button class="btn btn-light btn-sm" onclick="carregarExemplo('ALEA IACTA EST', 3)">
+                                        Testar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card exemplo h-100">
+                                <div class="card-body text-center">
+                                    <h6><i class="fas fa-mask me-1"></i>Mensagem Militar</h6>
+                                    <p class="small mb-2">ENCONTRO AMANHA<br><em>Comunicação secreta</em></p>
+                                    <button class="btn btn-light btn-sm"
+                                        onclick="carregarExemplo('ENCONTRO AMANHA', 3)">
+                                        Testar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card exemplo h-100">
+                                <div class="card-body text-center">
+                                    <h6><i class="fas fa-graduation-cap me-1"></i>Desafio SENAC</h6>
+                                    <p class="small mb-2">VHQDF ULR SUHWR<br><em>Dica: deslocamento 3</em></p>
+                                    <button class="btn btn-light btn-sm"
+                                        onclick="carregarExemplo('VHQDF ULR SUHWR', 3, true)">
+                                        Resolver
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast para notificações -->
+    <div class="toast-container">
+        <div id="toast" class="toast" role="alert">
+            <div class="toast-header">
+                <i class="fas fa-info-circle text-primary me-2"></i>
+                <strong class="me-auto">Cifra de César</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body" id="toastBody">
+                Mensagem
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Variáveis globais
+        let deslocamentoAtual = 3;
+        const alfabeto = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+        // Criar as rodas
+        function criarRodas() {
+            criarRodaExterna();
+            criarRodaInterna();
+        }
+
+        function criarRodaExterna() {
+            const roda = document.getElementById('rodaExterna');
+            roda.innerHTML = '';
+
+            for (let i = 0; i < 26; i++) {
+                const letra = document.createElement('div');
+                letra.className = 'letra-roda externa';
+                letra.textContent = alfabeto[i];
+
+                const angulo = (i * 360 / 26) - 90;
+                const raio = window.innerWidth <= 576 ? 85 : window.innerWidth <= 768 ? 110 : 135;
+                const x = Math.cos(angulo * Math.PI / 180) * raio;
+                const y = Math.sin(angulo * Math.PI / 180) * raio;
+
+                letra.style.left = `calc(50% + ${x}px - 12.5px)`;
+                letra.style.top = `calc(50% + ${y}px - 12.5px)`;
+
+                roda.appendChild(letra);
+            }
+        }
+
+        function criarRodaInterna() {
+            const roda = document.getElementById('rodaInterna');
+            roda.innerHTML = '';
+
+            for (let i = 0; i < 26; i++) {
+                const letra = document.createElement('div');
+                letra.className = 'letra-roda interna';
+                letra.textContent = alfabeto[i];
+
+                const angulo = (i * 360 / 26) - 90;
+                const raio = window.innerWidth <= 576 ? 60 : window.innerWidth <= 768 ? 75 : 85;
+                const x = Math.cos(angulo * Math.PI / 180) * raio;
+                const y = Math.sin(angulo * Math.PI / 180) * raio;
+
+                letra.style.left = `calc(50% + ${x}px - 12.5px)`;
+                letra.style.top = `calc(50% + ${y}px - 12.5px)`;
+
+                roda.appendChild(letra);
+            }
+
+            atualizarRodaInterna();
+        }
+
+        function atualizarRodaInterna() {
+            const roda = document.getElementById('rodaInterna');
+            const letras = roda.querySelectorAll('.letra-roda');
+
+            letras.forEach((letra, i) => {
+                const indiceDeslocado = (i + deslocamentoAtual) % 26;
+                letra.textContent = alfabeto[indiceDeslocado];
+            });
+        }
+
+        function mudarDeslocamento(direcao) {
+            deslocamentoAtual += direcao;
+
+            if (deslocamentoAtual < 0) deslocamentoAtual = 25;
+            if (deslocamentoAtual > 25) deslocamentoAtual = 0;
+
+            document.getElementById('centroRoda').textContent = deslocamentoAtual;
+            document.getElementById('displayDeslocamento').textContent = deslocamentoAtual;
+
+            atualizarRodaInterna();
+            mostrarToast(`Deslocamento alterado para ${deslocamentoAtual}`);
+        }
+
+        function cifraDeCesar(texto, deslocamento, descriptografar = false) {
+            if (descriptografar) deslocamento = -deslocamento;
+
+            return texto.toUpperCase().split('').map(char => {
+                if (char >= 'A' && char <= 'Z') {
+                    const indice = char.charCodeAt(0) - 65;
+                    const novoIndice = (indice + deslocamento + 26) % 26;
+                    return String.fromCharCode(novoIndice + 65);
+                }
+                return char;
+            }).join('');
+        }
+
+        function criptografarMensagem() {
+            const texto = document.getElementById('textoMensagem').value;
+            if (!texto.trim()) {
+                mostrarToast('Digite uma mensagem primeiro!', 'warning');
+                return;
+            }
+
+            const resultado = cifraDeCesar(texto, deslocamentoAtual);
+            document.getElementById('areaResultado').textContent = resultado;
+            document.getElementById('btnCopiar').style.display = 'block';
+
+            mostrarToast('Mensagem criptografada!', 'success');
+        }
+
+        function descriptografarMensagem() {
+            const texto = document.getElementById('textoMensagem').value;
+            if (!texto.trim()) {
+                mostrarToast('Digite uma mensagem primeiro!', 'warning');
+                return;
+            }
+
+            const resultado = cifraDeCesar(texto, deslocamentoAtual, true);
+            document.getElementById('areaResultado').textContent = resultado;
+            document.getElementById('btnCopiar').style.display = 'block';
+
+            mostrarToast('Mensagem descriptografada!', 'success');
+        }
+
+        function limparTudo() {
+            document.getElementById('textoMensagem').value = '';
+            document.getElementById('areaResultado').textContent = 'Sua mensagem aparecerá aqui...';
+            document.getElementById('btnCopiar').style.display = 'none';
+            mostrarToast('Campos limpos!');
+        }
+
+        function exemploAleatorio() {
+            const exemplos = [
+                'OLA MUNDO',
+                'SENAC E SHOW',
+                'TECNOLOGIA',
+                'PROGRAMACAO',
+                'CODIGO SECRETO'
+            ];
+
+            const exemplo = exemplos[Math.floor(Math.random() * exemplos.length)];
+            document.getElementById('textoMensagem').value = exemplo;
+            mostrarToast('Exemplo carregado!');
+        }
+
+        function carregarExemplo(texto, deslocamento, descriptografar = false) {
+            // Ajustar deslocamento
+            while (deslocamentoAtual !== deslocamento) {
+                mudarDeslocamento(deslocamento > deslocamentoAtual ? 1 : -1);
+            }
+
+            document.getElementById('textoMensagem').value = texto;
+
+            if (descriptografar) {
+                descriptografarMensagem();
+            } else {
+                criptografarMensagem();
+            }
+        }
+
+        function copiarResultado() {
+            const texto = document.getElementById('areaResultado').textContent;
+            navigator.clipboard.writeText(texto).then(() => {
+                mostrarToast('Resultado copiado!', 'success');
+            });
+        }
+
+        function mostrarToast(mensagem, tipo = 'info') {
+            const toast = document.getElementById('toast');
+            const toastBody = document.getElementById('toastBody');
+
+            toastBody.textContent = mensagem;
+
+            // Remover classes de cor anteriores
+            toast.classList.remove('text-bg-success', 'text-bg-warning', 'text-bg-info');
+
+            // Adicionar classe baseada no tipo
+            if (tipo === 'success') toast.classList.add('text-bg-success');
+            else if (tipo === 'warning') toast.classList.add('text-bg-warning');
+            else toast.classList.add('text-bg-info');
+
+            const bsToast = new bootstrap.Toast(toast);
+            bsToast.show();
+        }
+
+        // Atalhos de teclado
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                mudarDeslocamento(1);
+            }
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                mudarDeslocamento(-1);
+            }
+            if (e.ctrlKey && e.key === 'e') {
+                e.preventDefault();
+                criptografarMensagem();
+            }
+            if (e.ctrlKey && e.key === 'd') {
+                e.preventDefault();
+                descriptografarMensagem();
+            }
+        });
+
+        // Recriar rodas no redimensionamento
+        window.addEventListener('resize', function () {
+            criarRodas();
+        });
+
+        // Inicializar
+        window.addEventListener('load', function () {
+            criarRodas();
+            mostrarToast('Simulador da Cifra de César carregado!');
+        });
+    </script>
+</body>
+
+</html>

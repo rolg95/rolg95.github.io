@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Entrega Quântica (Versão Definitiva)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(-45deg, #0f172a, #1e293b, #0f172a, #334155);
+            background-size: 400% 400%;
+            animation: gradiente-fundo 20s ease infinite;
+        }
+
+        @keyframes gradiente-fundo {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .cartao {
+            background-color: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mapa-container {
+            aspect-ratio: 1 / 1;
+            background-color: #1e293b;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            border: 1px solid #334155;
+        }
+
+        .mapa-svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .ruas {
+            fill: none;
+            stroke: #475569;
+            stroke-width: 4;
+        }
+
+        .emoji-texto {
+            font-size: 14px;
+            font-family: sans-serif;
+        }
+
+        .tracado-animado {
+            fill: none;
+            stroke-width: 6;
+            stroke-linecap: round;
+            stroke-dasharray: 500;
+            stroke-dashoffset: 500;
+        }
+
+        /* --- Animação Clássica --- */
+        .tracado-classico {
+            stroke: #38bdf8;
+        }
+
+        .erro-simbolo {
+            opacity: 0;
+        }
+
+        .animar-classico .tentativa-1 {
+            animation: desenhar-e-apagar 3s 0s linear forwards;
+        }
+
+        .animar-classico .erro-1 {
+            animation: piscar-erro 0.5s 1.2s linear;
+        }
+
+        .animar-classico .tentativa-2 {
+            animation: desenhar-e-apagar 3s 3.5s linear forwards;
+        }
+
+        .animar-classico .erro-2 {
+            animation: piscar-erro 0.5s 4.7s linear;
+        }
+
+        .animar-classico .solucao-classica {
+            animation: desenhar-final 2s 7s linear forwards;
+        }
+
+        @keyframes desenhar-e-apagar {
+            0% {
+                stroke-dashoffset: 500;
+            }
+
+            50% {
+                stroke-dashoffset: 0;
+            }
+
+            100% {
+                stroke-dashoffset: 500;
+            }
+        }
+
+        @keyframes desenhar-final {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        @keyframes piscar-erro {
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* --- Animação Quântica --- */
+        .tracado-fantasma {
+            stroke: #a78bfa;
+            stroke-width: 5;
+            opacity: 0.7;
+        }
+
+        .animar-quantico .tracado-fantasma {
+            animation: desenhar-fantasma 2s ease-out forwards;
+        }
+
+        .tracado-solucao {
+            stroke: #34d399;
+            filter: drop-shadow(0 0 8px #34d399);
+            stroke-dashoffset: 500;
+        }
+
+        .animar-quantico .tracado-solucao {
+            animation: desenhar-final 1s 2.5s ease-out forwards, brilhar 1.5s 3.5s infinite alternate;
+        }
+
+        @keyframes desenhar-fantasma {
+            from {
+                stroke-dashoffset: 500;
+            }
+
+            to {
+                stroke-dashoffset: 0;
+                opacity: 0;
+            }
+        }
+
+        @keyframes brilhar {
+            from {
+                filter: drop-shadow(0 0 6px #34d399);
+            }
+
+            to {
+                filter: drop-shadow(0 0 12px #6ee7b7);
+            }
+        }
+
+        .botao-desativado {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+
+<body class="text-gray-200 flex flex-col items-center min-h-screen p-4 sm:p-6">
+
+    <div class="w-full max-w-5xl text-center">
+        <header class="mb-8">
+            <h1
+                class="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500 mb-2">
+                A Entrega do Lanche
+            </h1>
+            <p class="text-lg text-gray-400">Uma corrida de entregas: Clássica vs. Quântica</p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-8">
+            <!-- Coluna Clássica -->
+            <div class="cartao rounded-2xl p-6 text-center flex flex-col">
+                <h2 class="text-3xl font-bold text-sky-400 mb-4">Entrega Clássica</h2>
+                <p class="text-gray-300 mb-6 flex-grow">A rota é traçada por tentativa e erro. Se o caminho é ruim, ele
+                    é apagado para tentar outro.</p>
+                <div class="mapa-container" id="mapa-classico"></div>
+            </div>
+
+            <!-- Coluna Quântica -->
+            <div class="cartao rounded-2xl p-6 text-center flex flex-col">
+                <h2 class="text-3xl font-bold text-emerald-400 mb-4">Entrega Quântica</h2>
+                <p class="text-gray-300 mb-6 flex-grow">Todas as rotas são traçadas ao mesmo tempo (<strong
+                        class="text-purple-400">superposição</strong>) e a melhor é escolhida.</p>
+                <div class="mapa-container" id="mapa-quantico"></div>
+            </div>
+        </div>
+
+        <div class="flex justify-center mb-8">
+            <button id="btn-iniciar"
+                class="bg-gradient-to-r from-emerald-500 to-green-500 hover:from-emerald-600 hover:to-green-600 text-white font-bold py-4 px-10 rounded-lg text-xl transition-all transform hover:scale-105 shadow-lg">
+                Iniciar Entregas!
+            </button>
+        </div>
+
+        <div id="container-explicacao" class="hidden w-full">
+            <div class="cartao rounded-2xl p-6 md:p-8 text-left max-w-4xl mx-auto">
+                <h3 class="text-3xl font-bold mb-4 text-center text-emerald-400">🛸 A Rota Quântica foi a ideal!</h3>
+                <p class="text-lg text-gray-300">
+                    A abordagem clássica perdeu tempo testando e apagando rotas ruins. A abordagem quântica usou a
+                    **superposição** para visualizar todos os cenários de uma vez e a **medição** para "colapsar" na
+                    melhor solução instantaneamente.
+                </p>
+                <p class="text-lg text-gray-300 mt-2">
+                    É exatamente assim que a computação quântica resolve problemas de **otimização** no mundo real:
+                    encontrando a melhor rota para frotas de aviões, a combinação perfeita de investimentos na bolsa ou
+                    a estrutura molecular ideal para um novo remédio.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const mapaClassico = document.getElementById('mapa-classico');
+        const mapaQuantico = document.getElementById('mapa-quantico');
+        const btnIniciar = document.getElementById('btn-iniciar');
+        const containerExplicacao = document.getElementById('container-explicacao');
+
+        const pontosSVG = `<text class="emoji-texto" x="18" y="22">🏠</text> <text class="emoji-texto" x="78" y="82">🍔</text>`;
+        const ruasPath = "M 20 20 L 80 20 L 80 80 L 20 80 Z M 50 20 L 50 80 M 20 50 L 80 50";
+
+        const mapaClassicoSVG = `
+        <svg class="mapa-svg" viewBox="0 0 100 100">
+            <path class="ruas" d="${ruasPath}" /> ${pontosSVG}
+            <path class="tracado-animado tracado-classico tentativa-1" d="M 20 20 L 80 20 L 80 50" />
+            <text class="emoji-texto erro-simbolo erro-1" x="78" y="48">🚫</text>
+            <path class="tracado-animado tracado-classico tentativa-2" d="M 20 20 L 20 50 L 50 50" />
+            <text class="emoji-texto erro-simbolo erro-2" x="48" y="48">🚫</text>
+            <path class="tracado-animado tracado-classico solucao-classica" d="M 20 20 L 20 80 L 80 80" />
+        </svg>`;
+
+        const mapaQuanticoSVG = `
+        <svg class="mapa-svg" viewBox="0 0 100 100">
+            <path class="ruas" d="${ruasPath}" /> ${pontosSVG}
+            <!-- Rotas fantasmas -->
+            <path class="tracado-animado tracado-fantasma" d="M 20 20 L 80 20 L 80 80" />
+            <path class="tracado-animado tracado-fantasma" d="M 20 20 L 50 20 L 50 80 L 80 80" />
+            <path class="tracado-animado tracado-fantasma" d="M 20 20 L 20 50 L 80 50 L 80 80" />
+            <!-- Rota da solução -->
+            <path class="tracado-animado tracado-solucao" d="M 20 20 L 20 80 L 80 80" />
+        </svg>`;
+
+        function prepararDemonstracao() {
+            mapaClassico.innerHTML = mapaClassicoSVG;
+            mapaQuantico.innerHTML = mapaQuanticoSVG;
+            containerExplicacao.classList.add('hidden');
+            btnIniciar.disabled = false;
+            btnIniciar.classList.remove('botao-desativado');
+            btnIniciar.innerText = "Iniciar Entregas!";
+        }
+
+        function iniciarAnimacoes() {
+            btnIniciar.disabled = true;
+            btnIniciar.classList.add('botao-desativado');
+            btnIniciar.innerText = "Calculando rotas...";
+
+            mapaClassico.querySelector('svg').classList.add('animar-classico');
+            mapaQuantico.querySelector('svg').classList.add('animar-quantico');
+
+            setTimeout(() => {
+                containerExplicacao.classList.remove('hidden');
+                btnIniciar.innerText = "Reiniciar";
+                btnIniciar.disabled = false;
+                btnIniciar.classList.remove('botao-desativado');
+            }, 9000);
+        }
+
+        btnIniciar.addEventListener('click', () => {
+            if (btnIniciar.innerText.includes("Iniciar")) {
+                iniciarAnimacoes();
+            } else {
+                prepararDemonstracao();
+            }
+        });
+
+        prepararDemonstracao();
+    </script>
+</body>
+
+</html>

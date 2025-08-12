@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introdução Interativa à Computação Quântica</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(-45deg, #0f172a, #1e293b, #0f172a, #334155);
+            background-size: 400% 400%;
+            animation: gradiente-fundo 20s ease infinite;
+        }
+
+        @keyframes gradiente-fundo {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .cartao {
+            background-color: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .cartao:hover {
+            border-color: rgba(255, 255, 255, 0.25);
+        }
+
+        .interruptor-bit {
+            width: 80px;
+            height: 40px;
+            background-color: #374151;
+            border-radius: 20px;
+            position: relative;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .interruptor-bit .pino {
+            width: 34px;
+            height: 34px;
+            background-color: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            transition: transform 0.3s ease;
+        }
+
+        .interruptor-bit.ligado {
+            background-color: #38bdf8;
+            /* sky-500 */
+        }
+
+        .interruptor-bit.ligado .pino {
+            transform: translateX(40px);
+        }
+
+        .esfera-qubit {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: bold;
+            color: white;
+            transition: all 0.4s ease-in-out;
+            cursor: pointer;
+        }
+
+        .superposicao {
+            background: radial-gradient(circle, #a855f7, #6d28d9);
+            animation: pulsar 2s infinite;
+            box-shadow: 0 0 25px 5px rgba(168, 85, 247, 0.6);
+        }
+
+        @keyframes pulsar {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .estado-0 {
+            background: #3b82f6;
+            /* blue-500 */
+            box-shadow: 0 0 20px 3px rgba(59, 130, 246, 0.7);
+        }
+
+        .estado-1 {
+            background: #22c55e;
+            /* green-500 */
+            box-shadow: 0 0 20px 3px rgba(34, 197, 94, 0.7);
+        }
+    </style>
+</head>
+
+<body class="text-gray-200 flex flex-col items-center min-h-screen p-4 sm:p-6">
+
+    <div class="w-full max-w-4xl text-center">
+        <header class="mb-8">
+            <h1
+                class="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-violet-500 mb-2">
+                O Mundo Clássico vs. O Mundo Quântico
+            </h1>
+            <p class="text-lg text-gray-400">Uma introdução interativa aos blocos da computação</p>
+        </header>
+
+        <!-- Seção Introdutória Adicionada -->
+        <div class="cartao rounded-2xl p-6 text-left mb-8">
+            <h2 class="text-2xl font-bold text-yellow-300 mb-3">O que é Computação Quântica?</h2>
+            <p class="text-lg text-gray-300">
+                Imagine usar as regras "estranhas" e poderosas do mundo microscópico (o mundo dos átomos e partículas)
+                para construir um novo tipo de computador. Essa é a ideia da **computação quântica**.
+            </p>
+            <p class="text-lg text-gray-300 mt-2">
+                Enquanto os computadores normais usam "bits" (que são como interruptores, ou 0 ou 1), os computadores
+                quânticos usam **"qubits"**. A seguir, você vai descobrir de forma interativa por que essa pequena
+                diferença é tão revolucionária.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+
+            <!-- Coluna do Bit Clássico -->
+            <div class="cartao rounded-2xl p-6 text-center flex flex-col">
+                <h2 class="text-3xl font-bold text-sky-400 mb-4">O Bit Clássico</h2>
+                <p class="text-gray-300 mb-6 flex-grow">
+                    É a base de todos os computadores que usamos hoje. Pense nele como um interruptor: só pode estar em
+                    um estado por vez, **Desligado (0)** ou **Ligado (1)**.
+                </p>
+                <div class="flex flex-col items-center justify-center my-6">
+                    <div id="interruptor-bit" class="interruptor-bit">
+                        <div class="pino"></div>
+                    </div>
+                    <p class="mt-4 text-6xl font-mono" id="valor-bit">0</p>
+                </div>
+                <p class="text-sm text-gray-500 mt-4">Clique no interruptor para mudar o estado.</p>
+            </div>
+
+            <!-- Coluna do Qubit -->
+            <div class="cartao rounded-2xl p-6 text-center flex flex-col">
+                <h2 class="text-3xl font-bold text-violet-400 mb-4">O Qubit</h2>
+                <p class="text-gray-300 mb-6 flex-grow">
+                    É a base da computação quântica. Ele pode ser **0**, **1**, ou uma combinação de ambos ao mesmo
+                    tempo. Esse estado de incerteza é chamado de **superposição**.
+                </p>
+                <div class="flex flex-col items-center justify-center my-6">
+                    <div id="esfera-qubit" class="esfera-qubit superposicao">
+                        <span id="texto-qubit">?</span>
+                    </div>
+                    <p class="mt-4 text-6xl font-mono" id="valor-qubit">&nbsp;</p>
+                </div>
+                <button id="btn-medir"
+                    class="bg-violet-600 hover:bg-violet-700 text-white font-bold py-3 px-6 rounded-lg text-lg transition-all transform hover:scale-105 shadow-lg w-full">
+                    Medir o Qubit
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Lógica para o Bit Clássico ---
+        const interruptorBit = document.getElementById('interruptor-bit');
+        const valorBit = document.getElementById('valor-bit');
+        let bitEstaLigado = false;
+
+        interruptorBit.addEventListener('click', () => {
+            bitEstaLigado = !bitEstaLigado;
+            interruptorBit.classList.toggle('ligado', bitEstaLigado);
+            valorBit.textContent = bitEstaLigado ? '1' : '0';
+        });
+
+        // --- Lógica para o Qubit ---
+        const btnMedir = document.getElementById('btn-medir');
+        const esferaQubit = document.getElementById('esfera-qubit');
+        const textoQubit = document.getElementById('texto-qubit');
+        const valorQubit = document.getElementById('valor-qubit');
+        let foiMedido = false;
+
+        function medirQubit() {
+            // Ao medir, o estado é forçado a "escolher" um lado
+            const resultado = Math.random() < 0.5 ? 0 : 1;
+            foiMedido = true;
+
+            // Atualiza a aparência da esfera
+            esferaQubit.classList.remove('superposicao');
+            textoQubit.style.display = 'none';
+
+            if (resultado === 0) {
+                esferaQubit.classList.add('estado-0');
+                valorQubit.textContent = '0';
+                valorQubit.style.color = '#60a5fa'; // sky-400
+            } else {
+                esferaQubit.classList.add('estado-1');
+                valorQubit.textContent = '1';
+                valorQubit.style.color = '#4ade80'; // green-400
+            }
+
+            // Altera o botão para "Reiniciar"
+            btnMedir.textContent = 'Reiniciar Superposição';
+        }
+
+        function reiniciarQubit() {
+            foiMedido = false;
+            esferaQubit.classList.remove('estado-0', 'estado-1');
+            esferaQubit.classList.add('superposicao');
+            textoQubit.style.display = 'block';
+            valorQubit.innerHTML = '&nbsp;'; // Reseta o valor
+            btnMedir.textContent = 'Medir o Qubit';
+        }
+
+        btnMedir.addEventListener('click', () => {
+            if (foiMedido) {
+                reiniciarQubit();
+            } else {
+                medirQubit();
+            }
+        });
+
+        esferaQubit.addEventListener('click', () => {
+            if (!foiMedido) {
+                medirQubit();
+            }
+        });
+
+    </script>
+</body>
+
+</html>
